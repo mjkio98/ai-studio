@@ -1,0 +1,132 @@
+<!-- Video Chat Interface - Similar to Chat Agent -->
+<div id="video-chat-section" class="modern-chat-app">
+    <!-- Chat Header -->
+    <header class="chat-header">
+        <div class="chat-header-content">
+            <div class="chat-title-section">
+                <div class="chat-icon">
+                    <i class="fab fa-youtube text-danger"></i>
+                </div>
+                <div class="chat-title-info">
+                    <h1 class="chat-main-title" data-en="YouTube Video Analyzer" data-ar="محلل فيديو يوتيوب">YouTube Video Analyzer</h1>
+                    <p class="chat-subtitle" data-en="Smart Video Summary & Q&A Assistant" data-ar="ملخص فيديو ذكي ومساعد أسئلة وأجوبة">Smart Video Summary & Q&A Assistant</p>
+                </div>
+            </div>
+            <div class="chat-header-actions">
+                <button class="header-btn" id="clear-video-chat-btn" title="Clear Chat">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Chat Messages Area -->
+    <main class="chat-messages-area" id="video-chat-messages">
+        <!-- Welcome Message -->
+        <div class="welcome-container">
+            <div class="welcome-avatar">
+                <i class="fab fa-youtube text-danger"></i>
+            </div>
+            <div class="welcome-message">
+                <h2 data-en="Welcome! 🎥" data-ar="مرحباً! 🎥">Welcome! 🎥</h2>
+                <p data-en="Send me a YouTube video URL to get an AI-powered summary, then ask questions about the video content!" data-ar="أرسل لي رابط فيديو يوتيوب للحصول على ملخص بالذكاء الاصطناعي، ثم اسأل أسئلة حول محتوى الفيديو!">Send me a YouTube video URL to get an AI-powered summary, then ask questions about the video content!</p>
+                <div class="example-bubble">
+                    <span class="example-label" data-en="Try:" data-ar="جرب:">Try:</span>
+                    <code>https://www.youtube.com/watch?v=...</code>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- AI Thinking Animation (Template) -->
+    <div id="video-ai-thinking" class="hidden">
+        <div class="message-container ai-message">
+            <div class="message-avatar">
+                <i class="fab fa-youtube text-danger"></i>
+            </div>
+            <div class="message-bubble ai-bubble">
+                <div class="thinking-animation">
+                    <div class="thinking-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="thinking-text" data-en="Analyzing video..." data-ar="تحليل الفيديو...">Analyzing video...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collapsible Thinking UI Template (DeepSeek-style) -->
+    <div id="video-thinking-template" class="hidden">
+        <div class="thinking-message">
+            <div class="message-avatar">
+                <i class="fab fa-youtube text-danger"></i>
+            </div>
+            <div class="thinking-container">
+                <div class="thinking-header" role="button" tabindex="0">
+                    <div class="thinking-header-content">
+                        <div class="thinking-icon">
+                            <i class="fas fa-cog fa-spin"></i>
+                        </div>
+                        <span class="thinking-label" data-en="Video Analysis Process" data-ar="عملية تحليل الفيديو">Video Analysis Process</span>
+                        <div class="thinking-status">
+                            <span class="thinking-status-text" data-en="Processing..." data-ar="جار المعالجة...">Processing...</span>
+                        </div>
+                    </div>
+                    <div class="thinking-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="thinking-content collapsed">
+                    <div class="thinking-text">
+                        <!-- Thinking content will be streamed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Typing Indicator -->
+    <div id="video-typing-indicator" class="typing-indicator hidden">
+        <div class="typing-avatar">
+            <i class="fab fa-youtube text-danger"></i>
+        </div>
+        <div class="typing-bubble">
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Input Area -->
+    <footer class="chat-input-area">
+        <div class="input-container">
+            <div class="input-wrapper">
+                <input 
+                    type="text" 
+                    id="video-chat-input"
+                    class="chat-input"
+                    placeholder="Paste YouTube URL or ask questions about the video..."
+                    data-en="Paste YouTube URL or ask questions about the video..."
+                    data-ar="الصق رابط يوتيوب أو اسأل أسئلة حول الفيديو..."
+                    maxlength="2000"
+                    autocomplete="off"
+                >
+                <button id="send-video-message-btn" class="send-btn" disabled>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <button id="stop-video-message-btn" class="stop-btn hidden" title="Stop Processing">
+                    <i class="fas fa-stop"></i>
+                </button>
+            </div>
+        </div>
+        <div class="input-footer">
+            <span class="char-counter">
+                <span id="video-char-count">0</span>/2000
+            </span>
+        </div>
+    </footer>
+</div>

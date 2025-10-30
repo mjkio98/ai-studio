@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block nav_content_active %}{% endblock %}
+{% block nav_single_video_active %}active bg-gradient-primary{% endblock %}
+
+{% block breadcrumb %}
+<span data-en="Single Video" data-ar="فيديو واحد">Single Video</span>
+{% endblock %}
+
+{% block extra_css %}
+<!-- Chat Agent CSS for Video Chat Interface -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat-agent.css') }}">
+<!-- Video Chat Specific CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/video-chat.css') }}">
+{% endblock %}
+
+{% block content %}
+{% include 'components/single_video_form.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<!-- Video Chat JavaScript -->
+<script src="{{ url_for('static', filename='js/video-chat.js') }}"></script>
+
+<!-- Page-specific JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Only initialize if we have the right elements for single video
+    if (window.PageUtils && window.PageUtils.isPage('single-video')) {
+        console.log('Initializing Single Video Chat page functionality');
+        
+        // Initialize the video chat interface
+        if (window.VideoChat) {
+            window.videoChat = new VideoChat();
+            console.log('✅ Video Chat initialized');
+        } else {
+            console.log('⏳ Video Chat initializing...');
+        }
+    } else {
+        console.log('Single video elements not found, skipping initialization');
+    }
+});
+</script>
+{% endblock %}

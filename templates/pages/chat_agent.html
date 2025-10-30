@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block nav_content_active %}{% endblock %}
+{% block nav_chat_agent_active %}active bg-gradient-primary{% endblock %}
+
+{% block breadcrumb %}
+<span data-en="Chat Agent" data-ar="وكيل المحادثة">Chat Agent</span>
+{% endblock %}
+
+{% block page_title %}
+<span data-en="AI Agent" data-ar=" لتحليل الروابط">AI Agent</span>
+{% endblock %}
+
+{% block content %}
+<!-- Chat Agent Interface - Full Screen -->
+{% include 'components/chat_agent.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<!-- Chat Agent JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Initializing Chat Agent page functionality');
+    
+    // Show the chat agent section (it's hidden by default for dashboard mode switching)
+    const chatAgentSection = document.getElementById('chat-agent-section');
+    if (chatAgentSection) {
+        chatAgentSection.classList.remove('hidden');
+        console.log('✅ Chat Agent section made visible');
+    }
+    
+    // Chat Agent will be initialized by its own script
+    if (window.chatAgent) {
+        console.log('✅ Chat Agent initialized and ready');
+    } else {
+        console.log('⏳ Chat Agent initializing...');
+        // The chat-agent.js script will handle initialization
+    }
+});
+</script>
+{% endblock %}

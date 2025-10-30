@@ -1,0 +1,340 @@
+/* Video Chat Specific Styles */
+
+/* Thinking Process Styles */
+.video-thinking-process {
+    margin: 1rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.thinking-header {
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+    color: #4a5568;
+    transition: background-color 0.3s ease;
+}
+
+.thinking-header:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.thinking-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.thinking-toggle {
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+    color: #718096;
+}
+
+.thinking-toggle.expanded {
+    transform: rotate(180deg);
+}
+
+.thinking-content {
+    padding: 0 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.thinking-content.expanded {
+    padding: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.thinking-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #6b7280;
+    white-space: pre-wrap;
+}
+
+.thinking-status {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    font-style: italic;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Thinking status indicators */
+.thinking-status.processing {
+    color: #f59e0b;
+}
+
+.thinking-status.complete {
+    color: #10b981;
+}
+
+.thinking-status.error {
+    color: #ef4444;
+}
+
+/* Animation for thinking indicator */
+.thinking-indicator {
+    display: inline-block;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Video Information Card */
+.video-info-card {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.video-thumbnail {
+    flex-shrink: 0;
+}
+
+.video-thumbnail img {
+    width: 120px;
+    height: 68px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.video-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.video-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+    color: #2d3748;
+}
+
+.video-channel {
+    font-size: 0.9rem;
+    color: #718096;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Video Summary */
+.video-summary {
+    margin-top: 1rem;
+}
+
+.video-summary h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.summary-content {
+    line-height: 1.6;
+    color: #4a5568;
+}
+
+/* Video Actions */
+.video-actions {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.help-text {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-style: italic;
+}
+
+.help-text i {
+    color: #f59e0b;
+}
+
+/* Message Types */
+.video-summary-message .ai-bubble {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.qa-response-message .ai-bubble {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .video-info-card {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .video-thumbnail {
+        align-self: center;
+    }
+    
+    .video-thumbnail img {
+        width: 160px;
+        height: 90px;
+    }
+    
+    .video-title {
+        font-size: 1rem;
+        text-align: center;
+    }
+    
+    .video-channel {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-info-card {
+        padding: 0.75rem;
+    }
+    
+    .video-thumbnail img {
+        width: 140px;
+        height: 79px;
+    }
+    
+    .video-title {
+        font-size: 0.95rem;
+    }
+    
+    .help-text {
+        font-size: 0.85rem;
+    }
+}
+
+/* Markdown Formatting in Chat Messages */
+#video-chat-section .message-content {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+}
+
+/* Ensure consistent font size for streaming and final content */
+#video-chat-section .message-bubble.ai .message-content,
+#video-chat-section .ai-bubble .message-content {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+}
+
+/* Override any larger font sizes from other CSS */
+#video-chat-section .message-text {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+}
+
+.message-content h1,
+.message-content h2,
+.message-content h3,
+.message-content h4,
+.message-content h5,
+.message-content h6 {
+    margin: 1em 0 0.5em 0;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.message-content h1 { font-size: 1.4rem !important; color: #2d3748; }
+.message-content h2 { font-size: 1.2rem !important; color: #2d3748; }
+.message-content h3 { font-size: 1.05rem !important; color: #4a5568; }
+.message-content h4 { font-size: 0.95rem !important; color: #4a5568; }
+.message-content h5 { font-size: 0.9rem !important; color: #4a5568; }
+.message-content h6 { font-size: 0.85rem !important; color: #4a5568; }
+
+.message-content h1:first-child,
+.message-content h2:first-child,
+.message-content h3:first-child,
+.message-content h4:first-child,
+.message-content h5:first-child,
+.message-content h6:first-child {
+    margin-top: 0;
+}
+
+.message-content ul,
+.message-content ol {
+    margin: 0.5em 0;
+    padding-left: 1.5em;
+}
+
+.message-content li {
+    margin: 0.3em 0;
+    line-height: 1.4;
+}
+
+.message-content ul li {
+    list-style-type: disc;
+}
+
+.message-content ol li {
+    list-style-type: decimal;
+}
+
+.message-content strong {
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.message-content em {
+    font-style: italic;
+    color: #4a5568;
+}
+
+.message-content code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #e53e3e;
+}
+
+.message-content p {
+    margin: 0.5em 0;
+    line-height: 1.6;
+}
+
+.message-content p:first-child {
+    margin-top: 0;
+}
+
+.message-content p:last-child {
+    margin-bottom: 0;
+}

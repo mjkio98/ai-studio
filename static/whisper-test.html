@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whisper Arabic Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .test-section h2 {
+            color: #555;
+            margin-top: 0;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .status.loading {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        .status.success {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .result {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+        }
+        .arabic-text {
+            font-size: 18px;
+            direction: rtl;
+            text-align: right;
+        }
+        #audioUpload {
+            margin: 10px 0;
+        }
+        .model-info {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎤 Whisper Arabic Test</h1>
+        <p>This test will help us determine if the <code>whisper-tiny</code> model can properly transcribe Arabic audio.</p>
+        
+        <div class="model-info">
+            <strong>Current Model:</strong> Xenova/whisper-tiny (77MB)<br>
+            <strong>Languages:</strong> Multilingual (including Arabic)<br>
+            <strong>Purpose:</strong> Test Arabic speech recognition capability
+        </div>
+
+        <!-- Test 1: Upload Audio File -->
+        <div class="test-section">
+            <h2>📁 Test 1: Upload Arabic Audio File</h2>
+            <p>Upload an Arabic audio file (MP3, WAV, M4A) to test transcription:</p>
+            <input type="file" id="audioUpload" accept="audio/*">
+            <button id="testUploadBtn" onclick="testUploadedAudio()">Test Uploaded Audio</button>
+            <div id="uploadStatus" class="status" style="display:none;"></div>
+            <div id="uploadResult" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- Test 2: Record Audio -->
+        <div class="test-section">
+            <h2>🎙️ Test 2: Record Arabic Speech</h2>
+            <p>Record yourself speaking Arabic for 5-10 seconds:</p>
+            <button id="recordBtn" onclick="toggleRecording()">🔴 Start Recording</button>
+            <button id="stopBtn" onclick="stopRecording()" style="display:none;">⏹️ Stop Recording</button>
+            <button id="testRecordBtn" onclick="testRecordedAudio()" style="display:none;">Test Recorded Audio</button>
+            <div id="recordStatus" class="status" style="display:none;"></div>
+            <div id="recordResult" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- Test 3: URL Audio -->
+        <div class="test-section">
+            <h2>🔗 Test 3: Test with URL (Advanced)</h2>
+            <p><strong>Note:</strong> Most URLs won't work due to CORS restrictions. Try these instead:</p>
+            
+            <div style="margin: 10px 0; padding: 10px; background: #fff3cd; border-radius: 5px;">
+                <strong>Recommended:</strong> Use <strong>Test 1 (Upload)</strong> or <strong>Test 2 (Record)</strong> instead!
+            </div>
+            
+            <p>Sample Arabic audio URLs (may work):</p>
+            <ul style="font-size: 14px; color: #666;">
+                <li>Look for: Quran recitation MP3s</li>
+                <li>Arabic news audio clips</li>
+                <li>Public domain Arabic speech</li>
+            </ul>
+            
+            <input type="url" id="audioUrl" placeholder="https://example.com/arabic-audio.mp3" style="width: 70%; padding: 8px;">
+            <button onclick="testUrlAudio()">Test URL Audio</button>
+            <div id="urlStatus" class="status" style="display:none;"></div>
+            <div id="urlResult" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- Results Summary -->
+        <div class="test-section">
+            <h2>📊 Test Results Summary</h2>
+            <div id="summary">
+                <p>Run tests above to see if whisper-tiny can handle Arabic transcription.</p>
+                <p><strong>What we're looking for:</strong></p>
+                <ul>
+                    <li>✅ Proper Arabic text output (not repeated words like "[Miris]")</li>
+                    <li>✅ Correct character encoding (Arabic script)</li>
+                    <li>✅ Reasonable accuracy for clear speech</li>
+                    <li>❌ English fallbacks or garbled output indicate poor Arabic support</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import Whisper transcriber
+        import('./js/whisper-transcriber.js').then(() => {
+            window.whisperTranscriber = new WhisperTranscriber();
+            console.log('✅ Whisper transcriber loaded');
+        }).catch(error => {
+            console.error('❌ Failed to load Whisper transcriber:', error);
+            // Fallback: create script tag for non-module loading
+            const script = document.createElement('script');
+            script.src = './js/whisper-transcriber.js';
+            script.onload = () => {
+                window.whisperTranscriber = new WhisperTranscriber();
+                console.log('✅ Whisper transcriber loaded (fallback)');
+            };
+            document.head.appendChild(script);
+        });
+
+        let mediaRecorder;
+        let audioChunks = [];
+        let recordedBlob = null;
+
+        // Test uploaded audio file
+        window.testUploadedAudio = async function() {
+            const fileInput = document.getElementById('audioUpload');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showStatus('uploadStatus', 'Please select an audio file first', 'error');
+                return;
+            }
+
+            await runTranscriptionTest(file, 'uploadStatus', 'uploadResult', 'Uploaded File');
+        };
+
+        // Recording functions
+        window.toggleRecording = async function() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = event => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    recordedBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    document.getElementById('testRecordBtn').style.display = 'inline-block';
+                    showStatus('recordStatus', 'Recording saved! Click "Test Recorded Audio" to transcribe.', 'success');
+                };
+
+                mediaRecorder.start();
+                document.getElementById('recordBtn').style.display = 'none';
+                document.getElementById('stopBtn').style.display = 'inline-block';
+                showStatus('recordStatus', '🔴 Recording... Speak Arabic clearly for 5-10 seconds', 'loading');
+
+            } catch (error) {
+                showStatus('recordStatus', `Microphone access failed: ${error.message}`, 'error');
+            }
+        };
+
+        window.stopRecording = function() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                document.getElementById('recordBtn').style.display = 'inline-block';
+                document.getElementById('stopBtn').style.display = 'none';
+            }
+        };
+
+        window.testRecordedAudio = async function() {
+            if (!recordedBlob) {
+                showStatus('recordStatus', 'No recorded audio available', 'error');
+                return;
+            }
+
+            await runTranscriptionTest(recordedBlob, 'recordStatus', 'recordResult', 'Recorded Audio');
+        };
+
+        // Test URL audio
+        window.testUrlAudio = async function() {
+            const url = document.getElementById('audioUrl').value.trim();
+            
+            if (!url) {
+                showStatus('urlStatus', 'Please enter a valid audio URL', 'error');
+                return;
+            }
+
+            try {
+                showStatus('urlStatus', 'Downloading audio from URL...', 'loading');
+                
+                // Try to fetch with error handling for CORS and 404
+                const response = await fetch(url, {
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'audio/*,*/*'
+                    }
+                });
+                
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error(`Audio file not found (HTTP 404). The URL may be incorrect or the file may have been moved.`);
+                    } else if (response.status === 0) {
+                        throw new Error(`CORS blocked. Most websites don't allow cross-origin audio access. Try uploading a file instead.`);
+                    } else {
+                        throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+                    }
+                }
+                
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.startsWith('audio/')) {
+                    console.warn('⚠️  Content type is not audio:', contentType);
+                }
+                
+                const blob = await response.blob();
+                if (blob.size === 0) {
+                    throw new Error('Downloaded file is empty');
+                }
+                
+                console.log(`✅ Downloaded audio: ${(blob.size/1024/1024).toFixed(2)}MB, type: ${blob.type}`);
+                await runTranscriptionTest(blob, 'urlStatus', 'urlResult', 'URL Audio');
+                
+            } catch (error) {
+                console.error('URL test failed:', error);
+                let errorMsg = error.message;
+                
+                if (error.message.includes('CORS') || error.message.includes('blocked')) {
+                    errorMsg = 'CORS Error: Most websites block cross-origin requests. Please use "Upload File" or "Record Audio" instead.';
+                } else if (error.message.includes('404')) {
+                    errorMsg = 'File not found (404): Check if the URL is correct and the file exists.';
+                } else if (error.name === 'TypeError') {
+                    errorMsg = 'Network Error: Cannot access the URL. Try a different URL or use file upload instead.';
+                }
+                
+                showStatus('urlStatus', errorMsg, 'error');
+            }
+        };
+
+        // Main transcription test function
+        async function runTranscriptionTest(audioBlob, statusId, resultId, testName) {
+            try {
+                if (!window.whisperTranscriber) {
+                    showStatus(statusId, 'Whisper transcriber not loaded yet. Please wait and try again.', 'error');
+                    return;
+                }
+
+                showStatus(statusId, 'Initializing Whisper model...', 'loading');
+                showResult(resultId, ''); // Clear previous results
+
+                // Test with Arabic language specified
+                console.log(`🧪 Testing ${testName} with Whisper-tiny for Arabic`);
+                
+                const result = await window.whisperTranscriber.transcribe(audioBlob, {
+                    language: 'ar', // Force Arabic language
+                    returnTimestamps: 'word',
+                    progressCallback: (status) => {
+                        showStatus(statusId, status.message, 'loading');
+                    }
+                });
+
+                // Analyze results
+                const analysis = analyzeTranscriptionResult(result);
+                
+                showStatus(statusId, `✅ Transcription complete - ${analysis.quality}`, 
+                    analysis.isGood ? 'success' : 'error');
+                
+                const resultText = formatResult(testName, result, analysis);
+                showResult(resultId, resultText);
+
+                updateSummary(testName, analysis);
+
+            } catch (error) {
+                console.error(`❌ ${testName} test failed:`, error);
+                showStatus(statusId, `❌ Test failed: ${error.message}`, 'error');
+                showResult(resultId, `Error: ${error.message}`);
+                
+                updateSummary(testName, { isGood: false, quality: 'Failed', issue: error.message });
+            }
+        }
+
+        // Analyze transcription quality
+        function analyzeTranscriptionResult(result) {
+            if (!result || result.length === 0) {
+                return { isGood: false, quality: 'No output', issue: 'Whisper produced no transcription' };
+            }
+
+            const fullText = result.map(r => r.text).join(' ');
+            const uniqueWords = new Set(fullText.toLowerCase().trim().split(/\s+/));
+            
+            // Check for Arabic characters
+            const hasArabic = /[\u0600-\u06FF\u0750-\u077F]/.test(fullText);
+            
+            // Check for repeated words (like the [Miris] issue)
+            const isRepeated = uniqueWords.size <= 2 && result.length > 5;
+            
+            // Check for meaningful content
+            const isMeaningful = fullText.length > 10 && uniqueWords.size > 2;
+
+            if (isRepeated) {
+                return { 
+                    isGood: false, 
+                    quality: 'Poor (Repeated words)', 
+                    issue: `Only ${uniqueWords.size} unique words in ${result.length} segments`,
+                    hasArabic
+                };
+            }
+
+            if (!hasArabic) {
+                return { 
+                    isGood: false, 
+                    quality: 'No Arabic detected', 
+                    issue: 'Output contains no Arabic characters',
+                    hasArabic: false
+                };
+            }
+
+            if (isMeaningful && hasArabic) {
+                return { 
+                    isGood: true, 
+                    quality: 'Good Arabic transcription', 
+                    issue: null,
+                    hasArabic: true
+                };
+            }
+
+            return { 
+                isGood: false, 
+                quality: 'Poor quality', 
+                issue: 'Short or low-quality transcription',
+                hasArabic
+            };
+        }
+
+        // Format results for display
+        function formatResult(testName, result, analysis) {
+            let output = `=== ${testName} Test Results ===\n\n`;
+            
+            output += `Quality Assessment: ${analysis.quality}\n`;
+            output += `Arabic Characters: ${analysis.hasArabic ? 'Yes ✅' : 'No ❌'}\n`;
+            output += `Segments: ${result.length}\n`;
+            if (analysis.issue) output += `Issue: ${analysis.issue}\n`;
+            
+            output += `\n--- Transcribed Text ---\n`;
+            
+            if (result.length === 0) {
+                output += '[No transcription produced]';
+            } else {
+                result.forEach((segment, i) => {
+                    const time = `${segment.start.toFixed(2)}s-${segment.end.toFixed(2)}s`;
+                    output += `${i+1}. [${time}] ${segment.text}\n`;
+                });
+                
+                output += `\n--- Full Text ---\n`;
+                const fullText = result.map(r => r.text).join(' ');
+                output += fullText;
+            }
+            
+            return output;
+        }
+
+        // Show status message
+        function showStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `status ${type}`;
+            element.style.display = 'block';
+        }
+
+        // Show result
+        function showResult(elementId, text) {
+            const element = document.getElementById(elementId);
+            element.textContent = text;
+            element.style.display = text ? 'block' : 'none';
+            
+            // Add Arabic class if contains Arabic text
+            if (/[\u0600-\u06FF\u0750-\u077F]/.test(text)) {
+                element.classList.add('arabic-text');
+            } else {
+                element.classList.remove('arabic-text');
+            }
+        }
+
+        // Update summary
+        function updateSummary(testName, analysis) {
+            const summaryEl = document.getElementById('summary');
+            const existingTests = summaryEl.querySelectorAll('.test-result');
+            
+            // Remove existing result for this test
+            existingTests.forEach(el => {
+                if (el.textContent.includes(testName)) {
+                    el.remove();
+                }
+            });
+            
+            // Add new result
+            const resultEl = document.createElement('div');
+            resultEl.className = 'test-result';
+            resultEl.innerHTML = `
+                <p><strong>${testName}:</strong> 
+                ${analysis.isGood ? '✅' : '❌'} ${analysis.quality}
+                ${analysis.issue ? ` (${analysis.issue})` : ''}
+                </p>
+            `;
+            summaryEl.appendChild(resultEl);
+        }
+
+    </script>
+</body>
+</html>

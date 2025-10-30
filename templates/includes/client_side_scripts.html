@@ -1,0 +1,33 @@
+<!-- Client-Side Video Processing Scripts -->
+<!-- Load these BEFORE the main app scripts -->
+
+<!-- TensorFlow.js (required for BlazeFace face detection) -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0/dist/tf.min.js"></script>
+
+<!-- BlazeFace Model (lightweight face detection) -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface@0.0.7/dist/blazeface.js"></script>
+
+<!-- FFmpeg.wasm - Local files for perfect A/V sync (100% FREE!) -->
+<script src="{{ url_for('static', filename='js/ffmpeg.min.js') }}"></script>
+
+<!-- Client-Side Processing Modules -->
+<script src="{{ url_for('static', filename='js/face-detection.js') }}"></script>
+<script src="{{ url_for('static', filename='js/video-segment-loader.js') }}"></script>
+<script src="{{ url_for('static', filename='js/whisper-transcriber.js') }}"></script>
+<script src="{{ url_for('static', filename='js/simple-caption-system.js') }}"></script>
+<script src="{{ url_for('static', filename='js/client-video-processor.js') }}"></script>
+<script src="{{ url_for('static', filename='js/client-shorts-generator.js') }}"></script>
+<script src="{{ url_for('static', filename='js/client-shorts-integration.js') }}"></script>
+
+<!-- 
+    Note: These scripts enable browser-based video processing
+    - Etro.js provides open-source video editing in browser (100% FREE!)
+    - Hardware-accelerated via Canvas/WebGL
+    - Full compositing, filters, and rendering capabilities
+    - Produces standard video files
+    - No server-side processing needed
+    - All processing runs locally
+    - Scales to unlimited concurrent users
+    - No watermarks, no license fees
+-->
+

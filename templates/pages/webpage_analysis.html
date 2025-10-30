@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block nav_content_active %}{% endblock %}
+{% block nav_webpage_active %}active bg-gradient-primary{% endblock %}
+
+{% block breadcrumb %}
+<span data-en="Webpage Analysis" data-ar="تحليل الصفحة">Webpage Analysis</span>
+{% endblock %}
+
+{% block content %}
+{% include 'components/webpage_analysis_form.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<!-- Page-specific JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Only initialize if we have the right elements for webpage analysis
+    if (window.PageUtils && window.PageUtils.isPage('webpage')) {
+        console.log('Initializing Webpage Analysis page functionality');
+        
+        // Initialize the main app if it exists
+        if (window.youtubeApp) {
+            // App already initialized by main-app.js
+            console.log('YouTube app already initialized');
+        }
+    } else {
+        console.log('Webpage analysis elements not found, skipping initialization');
+    }
+});
+</script>
+{% endblock %}
