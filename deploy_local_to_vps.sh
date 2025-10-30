@@ -5,7 +5,7 @@
 VPS_HOST="193.111.77.97"
 VPS_USER="root"
 APP_DIR="/opt/ai-studio"
-GITHUB_REPO="https://github.com/jsjru3/ai-studio.git"
+GITHUB_REPO="https://github.com/mjkio98/ai-studio.git"
 
 echo "🚀 Starting GitHub deployment to VPS..."
 echo "======================================"
@@ -45,7 +45,7 @@ echo "  📌 Installing Git if not present..."
 which git || apt update && apt install -y git
 
 echo "  📌 Cloning fresh from GitHub repository..."
-git clone https://github.com/jsjru3/ai-studio.git /opt/ai-studio
+git clone https://github.com/mjkio98/ai-studio.git /opt/ai-studio
 cd /opt/ai-studio
 
 echo ""
