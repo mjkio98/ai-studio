@@ -93,7 +93,6 @@
     
     <!-- Custom Header CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/custom-header.css') }}?v=1.0.0">
-    
     <!-- Custom styles for integration -->
     <style>
         /* Custom integration styles */
@@ -195,7 +194,6 @@
                 padding-top: 0;
             }
         }
-
         {% block extra_css %}{% endblock %}
     </style>
     
@@ -234,7 +232,6 @@
 <body class="g-sidenav-show bg-gray-200">
     <!-- Custom Header -->
     {% include 'components/custom_header.html' %}
-
     <!-- Sidebar Navigation -->
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
         <div class="sidenav-header">
@@ -304,7 +301,6 @@
     
     <!-- Custom Header JavaScript -->
     <script src="{{ url_for('static', filename='js/custom-header.js') }}?v=1.0.0"></script>
-    
     <!-- Custom YouTube App JavaScript -->
     <script src="{{ url_for('static', filename='js/cache-manager.js') }}?v=2.1.0"></script>
     <script src="{{ url_for('static', filename='js/language-manager.js') }}?v=2.1.0"></script>
