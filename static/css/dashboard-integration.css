@@ -453,6 +453,36 @@
         width: 100%;
         margin-left: 0 !important;
     }
+    
+    /* CRITICAL: Ensure video results are visible on mobile */
+    #shorts-clips-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+    
+    #shorts-clips-section .card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+    
+    #shorts-clips-section .card-body {
+        padding: 0.75rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    #shorts-clips-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {

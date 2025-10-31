@@ -169,15 +169,53 @@
             }
         }
 
-        /* Mobile specific - reduce gap further */
+        /* Mobile specific - reduce gap further and ensure video results are visible */
         @media (max-width: 768px) {
             .main-content {
                 padding-top: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
             }
             
             .container-fluid.py-4 {
                 padding-top: 0.75rem !important;
                 padding-bottom: 1rem !important;
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            /* Critical: Ensure video results sections are visible */
+            #shorts-clips-section,
+            #summary-section {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                overflow: visible !important;
+            }
+        }
+
+        /* Extra mobile optimizations */
+        @media (max-width: 480px) {
+            .container-fluid.py-4 {
+                padding: 0.5rem 0.25rem !important;
+            }
+            
+            .youtube-content-wrapper {
+                padding: 0.5rem !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            /* Ensure all content containers take full width */
+            .row, .col-12 {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
         }
 

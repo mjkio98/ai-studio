@@ -2040,16 +2040,60 @@ a:focus-visible {
         text-align: center;
     }
     
+    /* Better tablet video grid - 2 columns minimum */
     #shorts-clips-container.video-clips-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
-        gap: 16px !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 14px !important;
+        padding: 0 8px !important;
+    }
+    
+    /* Ensure video cards fit better on tablets */
+    .video-clip-card {
+        min-height: auto !important;
+    }
+    
+    .video-container {
+        aspect-ratio: 9/16 !important; /* Optimize for vertical shorts */
     }
 }
 
 @media (max-width: 640px) {
+    /* Mobile-first approach for better video display */
     #shorts-clips-container.video-clips-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
+        gap: 10px !important;
+        padding: 0 4px !important;
+    }
+    
+    /* Optimize video cards for smaller mobile screens */
+    .video-clip-card {
+        border-radius: 8px !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .video-container {
+        aspect-ratio: 9/16 !important; /* Better for mobile shorts */
+    }
+    
+    .video-clip-info {
+        padding: 8px !important;
+    }
+    
+    .video-title {
+        font-size: 13px !important;
+        -webkit-line-clamp: 1 !important;
+        line-clamp: 1 !important;
+    }
+    
+    .video-description {
+        font-size: 11px !important;
+        -webkit-line-clamp: 1 !important;
+        line-clamp: 1 !important;
+    }
+    
+    .video-actions .btn {
+        font-size: 11px !important;
+        padding: 4px 8px !important;
     }
 }
 
@@ -2121,9 +2165,128 @@ a:focus-visible {
         justify-content: center;
     }
     
+    /* IMPROVED: Keep 2-column layout instead of forcing single column */
     #shorts-clips-container.video-clips-grid {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        padding: 0 2px !important;
+        margin: 0 !important;
+    }
+    
+    /* Extra small mobile optimizations */
+    .video-clip-card {
+        border-radius: 6px !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .video-container {
+        aspect-ratio: 9/16 !important;
+        min-height: 160px !important;
+    }
+    
+    .video-clip-info {
+        padding: 6px !important;
+    }
+    
+    .video-title {
+        font-size: 12px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 4px !important;
+        -webkit-line-clamp: 1 !important;
+        line-clamp: 1 !important;
+    }
+    
+    .video-description {
+        display: none !important; /* Hide description on very small screens */
+    }
+    
+    .video-meta {
+        margin-bottom: 4px !important;
+    }
+    
+    .video-meta small {
+        font-size: 10px !important;
+    }
+    
+    .video-actions {
+        gap: 4px !important;
+    }
+    
+    .video-actions .btn {
+        font-size: 10px !important;
+        padding: 3px 6px !important;
+        border-radius: 12px !important;
+    }
+    
+    /* Make sure the video results section takes full width */
+    #shorts-clips-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    #shorts-clips-section .card {
+        margin: 0 !important;
+        border-radius: 8px !important;
+    }
+    
+    #shorts-clips-section .card-body {
+        padding: 12px !important;
+    }
+}
+
+/* ============================================
+   Extra Small Mobile (320px and smaller)
+   ============================================ */
+@media (max-width: 380px) {
+    /* Ultra-compact layout for very small screens */
+    #shorts-clips-container.video-clips-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+        padding: 0 !important;
+    }
+    
+    .video-container {
+        min-height: 140px !important;
+    }
+    
+    .video-clip-info {
+        padding: 4px !important;
+    }
+    
+    .video-title {
+        font-size: 11px !important;
+        margin-bottom: 2px !important;
+    }
+    
+    .video-actions .btn {
+        font-size: 9px !important;
+        padding: 2px 4px !important;
+    }
+    
+    /* Ensure container takes full available width */
+    .youtube-content-wrapper {
+        padding: 0.5rem !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Reduce header spacing */
+    #shorts-clips-section .card-header {
+        padding: 8px 12px !important;
+    }
+    
+    .clips-count .badge {
+        font-size: 10px !important;
+        padding: 2px 6px !important;
+    }
+    
+    .view-toggle button {
+        font-size: 10px !important;
+        padding: 4px 8px !important;
     }
 }
 
@@ -2292,6 +2455,7 @@ a:focus-visible {
     line-height: 1.3;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -2303,6 +2467,7 @@ a:focus-visible {
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
