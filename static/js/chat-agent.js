@@ -20,6 +20,7 @@ class ChatAgent {
         
         this.initializeElements();
         this.bindEvents();
+        this.initializeLanguage();
         
         console.log('🤖 Chat Agent initialized with sessionId:', this.sessionId);
     }
@@ -189,6 +190,39 @@ class ChatAgent {
         if (this.clearChatBtn) {
             this.clearChatBtn.addEventListener('click', () => this.clearChat());
         }
+        
+        // Language change event listener
+        window.addEventListener('languageChanged', (e) => {
+            const language = e.detail.language;
+            console.log('🌐 Chat Agent: Language changed to', language);
+            this.updateLanguageElements(language);
+        });
+        
+        // Also listen for storage changes in case language is changed in another tab
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'preferred-language' || e.key === 'preferred_language') {
+                const newLang = e.newValue;
+                if (newLang) {
+                    console.log('🌐 Chat Agent: Language changed via storage to', newLang);
+                    this.updateLanguageElements(newLang);
+                }
+            }
+        });
+        
+        // Listen for document attribute changes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && 
+                    (mutation.attributeName === 'dir' || mutation.attributeName === 'lang')) {
+                    const dir = document.documentElement.getAttribute('dir');
+                    const lang = document.documentElement.getAttribute('lang');
+                    const detectedLang = dir === 'rtl' ? 'ar' : (lang || 'en');
+                    console.log('🌐 Chat Agent: Document attribute changed, detected language:', detectedLang);
+                    this.updateLanguageElements(detectedLang);
+                }
+            });
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['dir', 'lang'] });
     }
     
     updateCharacterCount() {
@@ -222,6 +256,53 @@ class ChatAgent {
                 this.stopBtn.classList.add('hidden');
             }
         }
+    }
+    
+    // Update language elements when language changes
+    updateLanguageElements(lang) {
+        // Update all elements with data-en and data-ar attributes
+        document.querySelectorAll('[data-en][data-ar]').forEach(element => {
+            const text = element.getAttribute(`data-${lang}`);
+            if (text) {
+                element.textContent = text;
+            }
+        });
+        
+        // Update placeholder text for inputs
+        document.querySelectorAll('input[data-en][data-ar], textarea[data-en][data-ar]').forEach(input => {
+            const placeholder = input.getAttribute(`data-${lang}`);
+            if (placeholder) {
+                input.placeholder = placeholder;
+            }
+        });
+        
+        // Update select options
+        document.querySelectorAll('option[data-en][data-ar]').forEach(option => {
+            const text = option.getAttribute(`data-${lang}`);
+            if (text) {
+                option.textContent = text;
+            }
+        });
+        
+        console.log(`🌐 Chat Agent: Updated language elements to ${lang}`);
+    }
+    
+    // Initialize language on load
+    initializeLanguage() {
+        // Wait a bit to ensure other language systems are ready
+        setTimeout(() => {
+            // Get current language from multiple sources
+            const savedLang = localStorage.getItem('preferred-language') || 
+                            localStorage.getItem('preferred_language');
+            const docLang = document.documentElement.getAttribute('lang');
+            const dirAttr = document.documentElement.getAttribute('dir');
+            const currentLang = savedLang || docLang || (dirAttr === 'rtl' ? 'ar' : 'en');
+            
+            // Apply language elements
+            this.updateLanguageElements(currentLang);
+            
+            console.log(`🌐 Chat Agent: Initialized with language ${currentLang} (saved: ${savedLang}, doc: ${docLang}, dir: ${dirAttr})`);
+        }, 100);
     }
     
     // New method to handle both URL analysis and chat messages

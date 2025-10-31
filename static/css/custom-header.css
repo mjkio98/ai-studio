@@ -498,7 +498,9 @@ html {
     }
 }
 
-/* Reduced motion support */
+/* ============================================
+   Reduced Motion Support
+   ============================================ */
 @media (prefers-reduced-motion: reduce) {
     .custom-header *,
     .custom-header *::before,
@@ -507,4 +509,73 @@ html {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+/* ============================================
+   RTL (Arabic) Language Support
+   ============================================ */
+html[dir="rtl"] .navbar-container {
+    direction: rtl;
+}
+
+html[dir="rtl"] .mobile-menu-toggle {
+    order: 2;
+}
+
+html[dir="rtl"] .language-switcher {
+    order: 1;
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .navbar-menu {
+    left: auto;
+    right: 0;
+    transform: translateX(100%);
+    text-align: right;
+}
+
+html[dir="rtl"] .navbar-menu.active {
+    transform: translateX(0);
+}
+
+html[dir="rtl"] .nav-link {
+    justify-content: flex-end;
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .nav-icon {
+    margin-right: 0;
+    margin-left: 0.25rem;
+    order: 2;
+}
+
+html[dir="rtl"] .nav-text {
+    order: 1;
+    text-align: right;
+}
+
+html[dir="rtl"] .lang-btn {
+    direction: rtl;
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .lang-flag {
+    order: 2;
+    margin-left: 0.2rem;
+    margin-right: 0;
+}
+
+html[dir="rtl"] .lang-text {
+    order: 1;
+    text-align: right;
+}
+
+/* RTL Animation adjustments */
+html[dir="rtl"] .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 5px);
+}
+
+html[dir="rtl"] .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+    transform: rotate(45deg) translate(-7px, -6px);
 }

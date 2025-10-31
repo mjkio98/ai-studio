@@ -194,3 +194,291 @@
         font-size: 16px; /* Prevents zoom on iOS */
     }
 }
+
+/* ============================================
+   RTL (Arabic) Language Support
+   ============================================ */
+
+html[dir="rtl"] .modern-chat-app {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Noto Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Chat header RTL fixes */
+html[dir="rtl"] .chat-header {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .chat-header-content {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .chat-title-section {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .chat-title-info {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .chat-main-title,
+html[dir="rtl"] .chat-subtitle {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Header actions RTL */
+html[dir="rtl"] .chat-header-actions {
+    flex-direction: row-reverse;
+    gap: 1rem;
+}
+
+html[dir="rtl"] .analysis-mode-selector {
+    direction: rtl;
+}
+
+html[dir="rtl"] .mode-select {
+    text-align: right;
+    direction: rtl;
+    padding-right: 2.25rem;
+    padding-left: 0.75rem;
+    background-position: left 0.75rem center;
+}
+
+html[dir="rtl"] .header-btn {
+    direction: rtl;
+}
+
+/* Chat messages RTL */
+html[dir="rtl"] .chat-messages {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .chat-messages-area {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .chat-message {
+    direction: rtl;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+}
+
+html[dir="rtl"] .chat-message.user-message {
+    justify-content: flex-start;
+    text-align: right;
+}
+
+html[dir="rtl"] .chat-message.ai-message {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+html[dir="rtl"] .message-content {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .message-text {
+    text-align: right;
+    direction: rtl;
+    word-wrap: break-word;
+}
+
+html[dir="rtl"] .message-avatar {
+    order: -1;
+}
+
+/* Welcome message RTL */
+html[dir="rtl"] .welcome-container {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .welcome-message {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .welcome-message h2 {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .welcome-message p {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .example-bubble {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .example-label {
+    margin-left: 0.5rem;
+    margin-right: 0;
+}
+
+/* Thinking interface RTL */
+html[dir="rtl"] .thinking-message {
+    direction: rtl;
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .thinking-container {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .thinking-header {
+    text-align: right;
+    direction: rtl;
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .thinking-header-content {
+    text-align: right;
+    direction: rtl;
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .thinking-icon {
+    margin-left: 0.5rem;
+    margin-right: 0;
+    order: 2;
+}
+
+html[dir="rtl"] .thinking-label {
+    order: 1;
+    text-align: right;
+}
+
+html[dir="rtl"] .thinking-status {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .thinking-toggle {
+    order: 0;
+}
+
+html[dir="rtl"] .thinking-content {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .thinking-text {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Chat input RTL */
+html[dir="rtl"] .chat-input-area {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .chat-input-container {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .input-container {
+    direction: rtl;
+}
+
+html[dir="rtl"] .input-wrapper {
+    direction: rtl;
+}
+
+html[dir="rtl"] .input-group {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .chat-input,
+html[dir="rtl"] .form-control {
+    text-align: right;
+    direction: rtl;
+    padding-right: 0.75rem;
+    padding-left: 2.5rem; /* Space for send button */
+}
+
+html[dir="rtl"] .send-btn,
+html[dir="rtl"] .stop-btn {
+    order: -1;
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+
+html[dir="rtl"] .input-footer {
+    direction: rtl;
+    text-align: left; /* Keep character counter on left in RTL */
+}
+
+html[dir="rtl"] .char-counter {
+    direction: ltr; /* Keep counter LTR for clarity */
+}
+
+/* Typing indicator RTL */
+html[dir="rtl"] .typing-indicator {
+    direction: rtl;
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .typing-avatar {
+    order: -1;
+}
+
+html[dir="rtl"] .typing-bubble {
+    text-align: right;
+}
+
+/* Buttons and controls RTL */
+html[dir="rtl"] .btn {
+    direction: rtl;
+}
+
+html[dir="rtl"] .btn i {
+    margin-left: 0.5rem;
+    margin-right: 0;
+}
+
+/* Icon fixes for RTL */
+html[dir="rtl"] .fa,
+html[dir="rtl"] .fas,
+html[dir="rtl"] .far {
+    margin-left: 0.25rem;
+    margin-right: 0;
+}
+
+/* Mobile RTL adjustments */
+@media (max-width: 768px) {
+    html[dir="rtl"] .chat-header {
+        padding: 0.75rem;
+    }
+    
+    html[dir="rtl"] .chat-title-section {
+        margin-bottom: 0.5rem;
+    }
+    
+    html[dir="rtl"] .chat-header-actions {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    html[dir="rtl"] .mode-select {
+        min-width: 120px;
+    }
+    
+    html[dir="rtl"] .input-wrapper {
+        padding: 0.5rem;
+    }
+}

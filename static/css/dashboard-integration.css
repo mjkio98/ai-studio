@@ -593,18 +593,226 @@
    RTL Support
    ============================================ */
 
+/* ============================================
+   Enhanced RTL Support
+   ============================================ */
+
 html[dir="rtl"] body {
     text-align: right;
+    font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
 }
 
 html[dir="rtl"] .youtube-content-wrapper {
     text-align: right;
+    direction: rtl;
 }
 
+/* Main content wrapper RTL fixes */
+html[dir="rtl"] .main-content,
+html[dir="rtl"] .main-content .container-fluid {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .row {
+    direction: rtl;
+}
+
+html[dir="rtl"] .col,
+html[dir="rtl"] .col-md-12,
+html[dir="rtl"] .col-lg-12,
+html[dir="rtl"] .col-xl-12 {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Header and title improvements */
+html[dir="rtl"] header {
+    text-align: right;
+}
+
+html[dir="rtl"] .display-6,
+html[dir="rtl"] h1, 
+html[dir="rtl"] h2, 
+html[dir="rtl"] h3, 
+html[dir="rtl"] h4, 
+html[dir="rtl"] h5, 
+html[dir="rtl"] h6 {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .text-center {
+    text-align: center !important;
+}
+
+html[dir="rtl"] .lead {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Paragraph and text elements */
+html[dir="rtl"] p,
+html[dir="rtl"] .text-muted,
+html[dir="rtl"] .text-body,
+html[dir="rtl"] .description {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Form and input improvements */
+html[dir="rtl"] .form-label {
+    text-align: right;
+    display: block;
+}
+
+html[dir="rtl"] .form-control,
+html[dir="rtl"] input[type="url"],
+html[dir="rtl"] input[type="text"],
+html[dir="rtl"] textarea,
+html[dir="rtl"] select {
+    text-align: right;
+    direction: rtl;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+html[dir="rtl"] .form-control::placeholder,
+html[dir="rtl"] input::placeholder,
+html[dir="rtl"] textarea::placeholder {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Select dropdown improvements */
+html[dir="rtl"] select.form-control,
+html[dir="rtl"] .form-select {
+    text-align: right;
+    direction: rtl;
+    padding-right: 2.25rem;
+    padding-left: 0.75rem;
+    background-position: left 0.75rem center;
+}
+
+/* Button improvements */
+html[dir="rtl"] .btn {
+    direction: rtl;
+}
+
+html[dir="rtl"] .btn i {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
+
+html[dir="rtl"] .btn .me-2 {
+    margin-right: 0 !important;
+    margin-left: 0.5rem !important;
+}
+
+html[dir="rtl"] .btn .me-1 {
+    margin-right: 0 !important;
+    margin-left: 0.25rem !important;
+}
+
+/* Mode buttons and button groups */
 html[dir="rtl"] .mode-buttons {
     justify-content: flex-end;
+    direction: rtl;
 }
 
+html[dir="rtl"] .btn-mode {
+    direction: rtl;
+}
+
+html[dir="rtl"] .btn-group {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .btn-group .btn {
+    direction: rtl;
+}
+
+/* Alert and status messages */
+html[dir="rtl"] .alert {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .alert-heading {
+    text-align: right;
+}
+
+/* Card improvements */
+html[dir="rtl"] .card {
+    direction: rtl;
+}
+
+html[dir="rtl"] .card-title,
+html[dir="rtl"] .card-text,
+html[dir="rtl"] .card-body {
+    text-align: right;
+    direction: rtl;
+}
+
+/* List improvements */
+html[dir="rtl"] ul,
+html[dir="rtl"] ol,
+html[dir="rtl"] li {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] ul,
+html[dir="rtl"] ol {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+/* Badge and meta information */
+html[dir="rtl"] .badge {
+    direction: rtl;
+}
+
+html[dir="rtl"] .video-meta,
+html[dir="rtl"] .meta-info {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Icon spacing fixes for RTL */
+html[dir="rtl"] .fa,
+html[dir="rtl"] .fas,
+html[dir="rtl"] .far,
+html[dir="rtl"] .fab {
+    margin-left: 0.5rem;
+    margin-right: 0;
+}
+
+html[dir="rtl"] .fa.me-1,
+html[dir="rtl"] .fas.me-1,
+html[dir="rtl"] .far.me-1,
+html[dir="rtl"] .fab.me-1 {
+    margin-right: 0 !important;
+    margin-left: 0.25rem !important;
+}
+
+html[dir="rtl"] .fa.me-2,
+html[dir="rtl"] .fas.me-2,
+html[dir="rtl"] .far.me-2,
+html[dir="rtl"] .fab.me-2 {
+    margin-right: 0 !important;
+    margin-left: 0.5rem !important;
+}
+
+html[dir="rtl"] .fa.me-3,
+html[dir="rtl"] .fas.me-3,
+html[dir="rtl"] .far.me-3,
+html[dir="rtl"] .fab.me-3 {
+    margin-right: 0 !important;
+    margin-left: 1rem !important;
+}
+
+/* Language switcher RTL */
 html[dir="rtl"] .language-switcher {
     flex-direction: row-reverse;
     gap: 0.5rem;
@@ -614,21 +822,186 @@ html[dir="rtl"] .language-switcher .btn {
     margin-inline: 0;
 }
 
-/* Sidebar containment - ensure no elements go outside container */
-html[dir="rtl"] .sidenav {
-    /* overflow: hidden !important; */ /* Removed - was cutting off menu items */
-    margin-right: 1rem !important;
-    margin-left: 0 !important;
-    width: 17.5rem !important; /* Wider than English to accommodate Arabic text */
-    max-width: 17.5rem !important;
-    min-width: 17.5rem !important;
+/* Flexbox direction fixes */
+html[dir="rtl"] .d-flex {
+    direction: rtl;
 }
 
+html[dir="rtl"] .align-items-center {
+    text-align: right;
+}
+
+html[dir="rtl"] .justify-content-between {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .justify-content-start {
+    justify-content: flex-end;
+}
+
+html[dir="rtl"] .justify-content-end {
+    justify-content: flex-start;
+}
+
+/* Progress and loading indicators */
+html[dir="rtl"] .progress {
+    direction: ltr; /* Keep progress bars LTR for consistency */
+}
+
+html[dir="rtl"] .spinner-border {
+    margin-left: 0;
+    margin-right: 1rem;
+}
+
+/* Table improvements */
+html[dir="rtl"] table,
+html[dir="rtl"] .table {
+    direction: rtl;
+}
+
+html[dir="rtl"] th,
+html[dir="rtl"] td {
+    text-align: right;
+}
+
+/* Modal and dropdown improvements */
+html[dir="rtl"] .modal-content,
+html[dir="rtl"] .modal-body,
+html[dir="rtl"] .modal-header,
+html[dir="rtl"] .modal-footer {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .dropdown-menu {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .dropdown-item {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Navigation improvements */
+html[dir="rtl"] .nav,
+html[dir="rtl"] .nav-link {
+    direction: rtl;
+}
+
+html[dir="rtl"] .breadcrumb {
+    direction: rtl;
+}
+
+html[dir="rtl"] .breadcrumb-item {
+    direction: rtl;
+}
+
+/* Welcome message and chat interface RTL */
+html[dir="rtl"] .welcome-message {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] .example-bubble {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .example-label {
+    margin-left: 0.5rem;
+    margin-right: 0;
+}
+
+/* Chat input RTL */
+html[dir="rtl"] .chat-input {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Spacing utilities RTL adjustments */
+html[dir="rtl"] .ms-auto {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+html[dir="rtl"] .me-auto {
+    margin-right: 0 !important;
+    margin-left: auto !important;
+}
+
+html[dir="rtl"] .pe-3 {
+    padding-right: 0 !important;
+    padding-left: 1rem !important;
+}
+
+html[dir="rtl"] .ps-3 {
+    padding-left: 0 !important;
+    padding-right: 1rem !important;
+}
+
+/* Footer and bottom elements */
+html[dir="rtl"] .text-muted {
+    text-align: right;
+    direction: rtl;
+}
+
+html[dir="rtl"] footer {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Sidebar containment - ensure no elements go outside container */
+/* ============================================
+   Sidebar RTL Styles - Keep Sidebar on Left
+   ============================================ */
+
+/* Override: Keep sidebar on the left even in RTL mode */
+html[dir="rtl"] .sidenav {
+    /* Keep sidebar positioning same as LTR */
+    left: 0 !important;
+    right: auto !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    width: 17.125rem !important; /* Same as LTR */
+    max-width: 17.125rem !important;
+    min-width: 17.125rem !important;
+}
+
+/* Override: Keep main content margin same as LTR */
 @media (min-width: 1200px) {
-    html[dir="rtl"] .sidenav.fixed-end + .main-content {
-        margin-right: 19rem !important; /* Adjusted for wider sidebar */
-        margin-left: 0 !important;
+    html[dir="rtl"] .sidenav.fixed-end + .main-content,
+    html[dir="rtl"] .sidenav + .main-content {
+        margin-left: 17.125rem !important; /* Same as LTR */
+        margin-right: 0 !important;
     }
+}
+
+/* Ensure main content area itself uses RTL for text */
+html[dir="rtl"] .main-content {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+/* Also apply margin directly to main-content for consistency */
+@media (min-width: 1200px) {
+    html[dir="rtl"] .main-content {
+        margin-left: 17.125rem !important; /* Same as LTR */
+        margin-right: 0 !important;
+    }
+}
+
+/* Mobile responsive: Remove margin on smaller screens */
+@media (max-width: 1199.98px) {
+    html[dir="rtl"] .main-content {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+html[dir="rtl"] .main-content .container-fluid {
+    direction: rtl !important;
+    text-align: right !important;
 }
 
 html[dir="rtl"] .sidenav .navbar-nav {
@@ -751,19 +1124,30 @@ html[dir="rtl"] .input-row .remove-url-btn {
     margin-right: 0.75rem;
 }
 
+/* Override: Keep sidebar on left even with body.rtl class */
 body.rtl .sidenav {
-    right: 0;
-    left: auto;
+    left: 0 !important; /* Keep on left */
+    right: auto !important;
+    margin-left: 1rem !important; /* Add margin from left edge in RTL */
 }
 
-body.rtl .main-content {
-    margin-left: 0;
-    margin-right: 17.125rem;
+/* Also apply to html[dir="rtl"] for consistency */
+html[dir="rtl"] .sidenav {
+    margin-left: 1rem !important; /* Add margin from left edge in RTL */
+    margin-right: 0 !important;
+}
+
+@media (min-width: 1200px) {
+    body.rtl .main-content {
+        margin-left: 17.125rem !important; /* Keep left margin */
+        margin-right: 0 !important;
+    }
 }
 
 @media (max-width: 1199.98px) {
     body.rtl .main-content {
-        margin-right: 0;
+        margin-left: 0 !important; /* Remove margin on mobile */
+        margin-right: 0 !important;
     }
 }
 
@@ -794,4 +1178,83 @@ body.rtl .main-content {
         border-color: #404040 !important;
         color: #e9ecef !important;
     }
+}
+
+/* ============================================
+   Sidebar Language Switcher
+   ============================================ */
+
+/* Language switcher specific styling */
+.sidenav #sidebar-lang-en,
+.sidenav #sidebar-lang-ar {
+    transition: all 0.3s ease !important;
+    margin: 0.125rem 0.5rem !important;
+    border-radius: 0.5rem !important;
+    position: relative;
+}
+
+.sidenav #sidebar-lang-en:hover,
+.sidenav #sidebar-lang-ar:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    transform: translateX(5px);
+}
+
+.sidenav #sidebar-lang-en.active,
+.sidenav #sidebar-lang-ar.active {
+    background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%) !important;
+    box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3) !important;
+    transform: translateX(5px);
+}
+
+.sidenav #sidebar-lang-en.active::before,
+.sidenav #sidebar-lang-ar.active::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 20px;
+    background: #e91e63;
+    border-radius: 2px;
+}
+
+/* Language header styling */
+.sidenav #nav-language-header {
+    margin-top: 1rem !important;
+    padding-left: 1rem !important;
+    opacity: 0.8 !important;
+    font-size: 0.7rem !important;
+}
+
+/* Flag emojis styling */
+.sidenav .nav-link span[style*="font-size: 1.2rem"] {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.sidenav .nav-link:hover span[style*="font-size: 1.2rem"] {
+    transform: scale(1.1);
+}
+
+/* RTL specific adjustments for language switcher */
+html[dir="rtl"] .sidenav #sidebar-lang-en,
+html[dir="rtl"] .sidenav #sidebar-lang-ar {
+    flex-direction: row-reverse !important;
+}
+
+html[dir="rtl"] .sidenav #sidebar-lang-en.active::before,
+html[dir="rtl"] .sidenav #sidebar-lang-ar.active::before {
+    left: auto;
+    right: -8px;
+}
+
+html[dir="rtl"] .sidenav #sidebar-lang-en:hover,
+html[dir="rtl"] .sidenav #sidebar-lang-ar:hover {
+    transform: translateX(-5px);
+}
+
+html[dir="rtl"] .sidenav #sidebar-lang-en.active,
+html[dir="rtl"] .sidenav #sidebar-lang-ar.active {
+    transform: translateX(-5px);
 }

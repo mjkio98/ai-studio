@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
+    <!-- Early Language Initialization - Must run before anything else -->
+    <script>
+        (function() {
+            // Get saved language preference immediately
+            var savedLang = localStorage.getItem('preferred-language') || localStorage.getItem('preferred_language');
+            
+            if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
+                console.log('🌐 Early language initialization:', savedLang);
+                
+                // Apply document attributes immediately
+                if (savedLang === 'ar') {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                    document.documentElement.setAttribute('lang', 'ar');
+                } else {
+                    document.documentElement.setAttribute('dir', 'ltr');
+                    document.documentElement.setAttribute('lang', 'en');
+                }
+            }
+        })();
+    </script>
+    
     <!-- Cache Busting: Force refresh of all static files -->
     <meta name="cache-control" content="no-cache, no-store, must-revalidate">
     <meta name="pragma" content="no-cache">
@@ -268,6 +289,18 @@
 </head>
 
 <body class="g-sidenav-show bg-gray-200">
+    <!-- Apply RTL class immediately if needed -->
+    <script>
+        (function() {
+            var savedLang = localStorage.getItem('preferred-language') || localStorage.getItem('preferred_language');
+            var docDir = document.documentElement.getAttribute('dir');
+            
+            if ((savedLang === 'ar') || (docDir === 'rtl')) {
+                document.body.classList.add('rtl');
+                console.log('🌐 Early RTL class applied to body');
+            }
+        })();
+    </script>
     <!-- Custom Header -->
     {% include 'components/custom_header.html' %}
     <!-- Sidebar Navigation -->
@@ -315,6 +348,27 @@
                             <i class="fas fa-cog"></i>
                         </div>
                         <span class="nav-link-text ms-1" id="nav-about" data-en="Settings" data-ar="الإعدادات">Settings</span>
+                    </a>
+                </li>
+                
+                <!-- Language Switcher Section -->
+                <li class="nav-item mt-4">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8" id="nav-language-header" data-en="Language" data-ar="اللغة">Language</h6>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#" id="sidebar-lang-en" data-lang="en">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <span style="font-size: 1.2rem;">🇺🇸</span>
+                        </div>
+                        <span class="nav-link-text ms-1">English</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#" id="sidebar-lang-ar" data-lang="ar">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <span style="font-size: 1.2rem;">🇸🇦</span>
+                        </div>
+                        <span class="nav-link-text ms-1">العربية</span>
                     </a>
                 </li>
             </ul>
@@ -518,7 +572,180 @@
                 // For non-dashboard pages, just handle basic sidebar navigation
                 console.log('Non-dashboard page detected, loading minimal navigation');
             }
+            
+            // Sidebar Language Switcher Functionality
+            initializeSidebarLanguageSwitcher();
         });
+        
+        function initializeSidebarLanguageSwitcher() {
+            const sidebarLangEn = document.getElementById('sidebar-lang-en');
+            const sidebarLangAr = document.getElementById('sidebar-lang-ar');
+            
+            if (!sidebarLangEn || !sidebarLangAr) {
+                console.log('Sidebar language buttons not found');
+                return;
+            }
+            
+            // Get current language from existing language manager
+            const currentLang = localStorage.getItem('preferred-language') || localStorage.getItem('preferred_language') || 'en';
+            updateSidebarLanguageState(currentLang);
+            
+            // Add click handlers
+            sidebarLangEn.addEventListener('click', function(e) {
+                e.preventDefault();
+                switchSidebarLanguage('en');
+            });
+            
+            sidebarLangAr.addEventListener('click', function(e) {
+                e.preventDefault();
+                switchSidebarLanguage('ar');
+            });
+            
+            // Listen for language changes from custom header or other sources
+            window.addEventListener('languageChanged', function(e) {
+                updateSidebarLanguageState(e.detail.language);
+            });
+            
+            console.log('✅ Sidebar language switcher initialized');
+        }
+        
+        function switchSidebarLanguage(lang) {
+            // First try to use the custom header language switching
+            if (window.customHeader && typeof window.customHeader.switchLanguage === 'function') {
+                window.customHeader.switchLanguage(lang);
+                console.log(`🌐 Language switched to ${lang} via sidebar (custom header)`);
+                return;
+            }
+            
+            // Then try existing language management system
+            if (window.YouTubeTranscriptAppMixins && window.YouTubeTranscriptAppMixins.length > 0) {
+                const languageManager = window.YouTubeTranscriptAppMixins.find(
+                    mixin => typeof mixin.switchLanguage === 'function'
+                );
+                
+                if (languageManager) {
+                    languageManager.switchLanguage(lang);
+                    updateSidebarLanguageState(lang);
+                    console.log(`🌐 Language switched to ${lang} via sidebar (app mixin)`);
+                    return;
+                }
+            }
+            
+            // Fallback: manual language switching
+            localStorage.setItem('preferred-language', lang);
+            localStorage.setItem('preferred_language', lang); // Alternative key
+            updateSidebarLanguageState(lang);
+            
+            // Update document direction
+            if (lang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+                document.documentElement.setAttribute('lang', 'ar');
+                document.body.classList.add('rtl');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+                document.documentElement.setAttribute('lang', 'en');
+                document.body.classList.remove('rtl');
+            }
+            
+            // Update all elements with language attributes
+            updateLanguageElements(lang);
+            
+            // Dispatch language change event for other components
+            window.dispatchEvent(new CustomEvent('languageChanged', {
+                detail: { language: lang }
+            }));
+            
+            console.log(`🌐 Language switched to ${lang} via sidebar (fallback)`);
+        }
+        
+        function updateSidebarLanguageState(lang) {
+            const sidebarLangEn = document.getElementById('sidebar-lang-en');
+            const sidebarLangAr = document.getElementById('sidebar-lang-ar');
+            
+            if (!sidebarLangEn || !sidebarLangAr) return;
+            
+            // Remove active class from both
+            sidebarLangEn.classList.remove('active');
+            sidebarLangAr.classList.remove('active');
+            
+            // Add active class to current language
+            if (lang === 'ar') {
+                sidebarLangAr.classList.add('active');
+            } else {
+                sidebarLangEn.classList.add('active');
+            }
+        }
+        
+        function updateLanguageElements(lang) {
+            document.querySelectorAll('[data-en][data-ar]').forEach(element => {
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+        }
+        
+        // Enhanced language persistence and initialization
+        function initializeLanguageOnLoad() {
+            // Get saved language preference
+            const savedLang = localStorage.getItem('preferred-language') || 
+                            localStorage.getItem('preferred_language');
+            
+            if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
+                console.log(`🌐 Secondary language initialization: ${savedLang}`);
+                
+                // Ensure document attributes are set (in case early script didn't run)
+                if (savedLang === 'ar') {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                    document.documentElement.setAttribute('lang', 'ar');
+                    document.body.classList.add('rtl');
+                } else {
+                    document.documentElement.setAttribute('dir', 'ltr');
+                    document.documentElement.setAttribute('lang', 'en');
+                    document.body.classList.remove('rtl');
+                }
+                
+                // Update language elements
+                updateLanguageElements(savedLang);
+                
+                // Update sidebar state
+                updateSidebarLanguageState(savedLang);
+                
+                // Dispatch language change event
+                window.dispatchEvent(new CustomEvent('languageChanged', {
+                    detail: { language: savedLang }
+                }));
+                
+                // Try to update other language systems
+                setTimeout(() => {
+                    if (window.customHeader && typeof window.customHeader.switchLanguage === 'function') {
+                        window.customHeader.switchLanguage(savedLang);
+                    }
+                    
+                    if (window.YouTubeTranscriptAppMixins && window.YouTubeTranscriptAppMixins.length > 0) {
+                        const languageManager = window.YouTubeTranscriptAppMixins.find(
+                            mixin => typeof mixin.switchLanguage === 'function'
+                        );
+                        if (languageManager) {
+                            languageManager.switchLanguage(savedLang);
+                        }
+                    }
+                }, 100); // Reduced timeout since early init already happened
+            } else {
+                console.log('🌐 No saved language found, using default English');
+            }
+        }
+        
+        // Initialize language immediately when DOM is ready
+        document.addEventListener('DOMContentLoaded', initializeLanguageOnLoad);
+        
+        // Also run immediately if DOM is already loaded
+        if (document.readyState === 'loading') {
+            // DOM is still loading
+        } else {
+            // DOM is already loaded
+            initializeLanguageOnLoad();
+        }
     </script>
     {% endblock %}
 
