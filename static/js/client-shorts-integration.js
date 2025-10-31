@@ -14,6 +14,21 @@
         async initializeClientSideProcessing() {
             console.log('🎬 Initializing client-side shorts processing...');
 
+            // Check if mobile device and show warning
+            const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                console.warn('📱 Mobile device detected - showing desktop recommendation');
+                
+                // Get current language from document lang attribute (same as other parts of the app)
+                const currentLanguage = document.documentElement.getAttribute('lang') || 'en';
+                const mobileWarningMessage = currentLanguage === 'ar' 
+                    ? 'يرجى استخدام الكمبيوتر المكتبي - قد لا يعمل هذا على الجهاز المحمول'
+                    : 'Please use desktop - this may not work on mobile device';
+                
+                this.showError(mobileWarningMessage);
+                return false;
+            }
+
             // Check browser compatibility
             if (!this.checkBrowserCompatibility()) {
                 console.error('❌ Browser does not support required features');
@@ -32,7 +47,30 @@
                 }
             } catch (error) {
                 console.error('❌ Failed to initialize client-side processing:', error);
-                this.showError(`Failed to initialize: ${error.message}`);
+                
+                // Provide mobile-specific error messages
+                const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                let errorMessage = `Failed to initialize: ${error.message}`;
+                
+                if (isMobile) {
+                    if (error.message.includes('FFmpeg')) {
+                        errorMessage = 'Video processing failed to load on your mobile device. This may be due to:\n' +
+                                     '• Limited memory or processing power\n' +
+                                     '• Browser restrictions on WebAssembly\n' +
+                                     '• Slow internet connection\n\n' +
+                                     'Try:\n' +
+                                     '• Using Chrome or Firefox mobile browser\n' +
+                                     '• Closing other apps to free memory\n' +
+                                     '• Using a desktop/laptop for video processing';
+                    } else if (error.message.includes('timeout')) {
+                        errorMessage = 'Mobile video processing timed out. Try:\n' +
+                                     '• Using a faster internet connection\n' +
+                                     '• Trying again (processing may work on retry)\n' +
+                                     '• Using a desktop browser for better performance';
+                    }
+                }
+                
+                this.showError(errorMessage);
                 return false;
             }
         },
@@ -46,12 +84,48 @@
                 'MediaRecorder API': typeof MediaRecorder !== 'undefined',
                 'WebGL': this.checkWebGLSupport(),
                 'Fetch API': typeof fetch !== 'undefined',
-                'Promises': typeof Promise !== 'undefined'
+                'Promises': typeof Promise !== 'undefined',
+                'WebAssembly': typeof WebAssembly !== 'undefined',
+                'FFmpeg Library': typeof window.FFmpeg !== 'undefined'
             };
 
             console.log('🔍 Browser compatibility check:', required);
 
-            return Object.values(required).every(supported => supported);
+            // Check for mobile-specific issues
+            const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                console.log('📱 Mobile device detected - checking additional requirements...');
+                
+                // Check SharedArrayBuffer (required for FFmpeg.wasm performance)
+                const hasSharedArrayBuffer = typeof SharedArrayBuffer !== 'undefined';
+                console.log(`📱 SharedArrayBuffer support: ${hasSharedArrayBuffer}`);
+                
+                // Check available memory (rough estimate)
+                const memoryInfo = navigator.deviceMemory || navigator.hardwareConcurrency || 2;
+                console.log(`📱 Device memory estimate: ${memoryInfo}GB`);
+                
+                if (!hasSharedArrayBuffer) {
+                    console.warn('⚠️ SharedArrayBuffer not available - FFmpeg.wasm may run slower on mobile');
+                }
+                
+                if (memoryInfo < 2) {
+                    console.warn('⚠️ Low memory device detected - may have issues with video processing');
+                }
+            }
+
+            // For mobile, be more lenient with requirements
+            const requiredFeatures = isMobile ? 
+                ['Canvas API', 'Fetch API', 'Promises', 'WebAssembly', 'FFmpeg Library'] :
+                Object.keys(required);
+
+            const missingFeatures = requiredFeatures.filter(feature => !required[feature]);
+            
+            if (missingFeatures.length > 0) {
+                console.error('❌ Missing required features:', missingFeatures);
+                return false;
+            }
+
+            return true;
         },
 
         /**
@@ -73,17 +147,30 @@
         async generateShortsClientSide() {
             console.log('🎯 generateShortsClientSide() called');
             
+            // Get the generate button and disable it to prevent multiple clicks
+            const generateBtn = document.getElementById('generate-shorts-btn');
+            if (generateBtn) {
+                generateBtn.disabled = true;
+                generateBtn.classList.add('loading');
+                const btnText = generateBtn.querySelector('#generate-shorts-text');
+                if (btnText) {
+                    btnText.textContent = 'Initializing...';
+                }
+            }
+            
             const url = document.getElementById('shorts-youtube-url')?.value?.trim();
             
             console.log('📝 URL input value:', url);
             
             if (!url) {
                 this.showError('Please enter a YouTube URL');
+                this.enableGenerateButton();
                 return;
             }
 
             if (!this.isValidYouTubeUrl(url)) {
                 this.showError('Please enter a valid YouTube URL');
+                this.enableGenerateButton();
                 return;
             }
 
@@ -136,6 +223,26 @@
             } catch (error) {
                 console.error('❌ Shorts generation failed:', error);
                 this.showError(`Failed to generate shorts: ${error.message}`);
+            } finally {
+                // Always re-enable the generate button when done
+                this.enableGenerateButton();
+            }
+        },
+
+        /**
+         * Enable the generate button and restore its original state
+         */
+        enableGenerateButton() {
+            const generateBtn = document.getElementById('generate-shorts-btn');
+            if (generateBtn) {
+                generateBtn.disabled = false;
+                generateBtn.classList.remove('loading');
+                const btnText = generateBtn.querySelector('#generate-shorts-text');
+                if (btnText) {
+                    // Get current language for button text
+                    const currentLanguage = document.documentElement.getAttribute('lang') || 'en';
+                    btnText.textContent = currentLanguage === 'ar' ? 'إنشاء الشورتس' : 'Generate Shorts';
+                }
             }
         },
 
@@ -331,6 +438,20 @@
             if (progressText) {
                 progressText.textContent = message;
             }
+
+            // Also update the button text to show current progress
+            const generateBtn = document.getElementById('generate-shorts-btn');
+            const btnText = generateBtn?.querySelector('#generate-shorts-text');
+            if (btnText && generateBtn?.disabled) {
+                // Show simplified progress on button
+                if (percentage < 30) {
+                    btnText.textContent = 'Initializing...';
+                } else if (percentage < 90) {
+                    btnText.textContent = 'Processing...';
+                } else {
+                    btnText.textContent = 'Almost done...';
+                }
+            }
         },
 
         /**
@@ -438,10 +559,12 @@
             const statusContainer = document.getElementById('status-container');
             if (statusContainer) {
                 statusContainer.classList.remove('hidden');
+                // Convert newlines to HTML breaks for better formatting
+                const formattedMessage = message.replace(/\n/g, '<br>');
                 statusContainer.innerHTML = `
                     <div class="error-message">
                         <i class="fas fa-exclamation-triangle"></i>
-                        <p>${message}</p>
+                        <div style="white-space: pre-line; text-align: left; padding: 10px;">${formattedMessage}</div>
                     </div>
                 `;
             }

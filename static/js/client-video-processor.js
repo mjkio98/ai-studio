@@ -78,18 +78,50 @@ class ClientSideVideoProcessor {
         const { createFFmpeg } = FFmpegLib;
         const baseUrl = window.location.origin;
         
-        this.ffmpeg = createFFmpeg({
-            log: false,
+        // Detect mobile device for optimized settings
+        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const hasSharedArrayBuffer = typeof SharedArrayBuffer !== 'undefined';
+        
+        console.log(`📱 Mobile device: ${isMobile}, SharedArrayBuffer: ${hasSharedArrayBuffer}`);
+        
+        // Mobile-optimized FFmpeg configuration
+        const ffmpegConfig = {
+            log: false,  // Disable logs on mobile to save memory
             corePath: `${baseUrl}/static/js/ffmpeg-core.js`,
             wasmPath: `${baseUrl}/static/js/ffmpeg-core.wasm`,
             workerPath: `${baseUrl}/static/js/ffmpeg-core.worker.js`
-        });
+        };
         
-        // Load FFmpeg
+        // On mobile without SharedArrayBuffer, use single-threaded mode
+        if (isMobile && !hasSharedArrayBuffer) {
+            console.log('📱 Using single-threaded mode for mobile compatibility');
+            ffmpegConfig.mainName = 'main';  // Force single-threaded
+        }
+        
+        this.ffmpeg = createFFmpeg(ffmpegConfig);
+        
+        // Load FFmpeg with timeout for mobile
         console.log('⏳ Loading FFmpeg.wasm core...');
         console.log(`   Core path: ${baseUrl}/static/js/ffmpeg-core.js`);
-        await this.ffmpeg.load();
-        console.log('✅ FFmpeg.wasm core loaded successfully');
+        console.log(`   Mobile optimized: ${isMobile}`);
+        
+        // Add timeout for mobile devices (they may be slower)
+        const loadTimeout = isMobile ? 30000 : 15000;  // 30s for mobile, 15s for desktop
+        
+        const loadPromise = this.ffmpeg.load();
+        const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('FFmpeg load timeout')), loadTimeout)
+        );
+        
+        try {
+            await Promise.race([loadPromise, timeoutPromise]);
+            console.log('✅ FFmpeg.wasm core loaded successfully');
+        } catch (error) {
+            if (error.message === 'FFmpeg load timeout') {
+                throw new Error('FFmpeg.wasm failed to load (timeout) - try using a faster internet connection or desktop browser');
+            }
+            throw error;
+        }
         
         // Load font for caption rendering
         await this.loadFont();
