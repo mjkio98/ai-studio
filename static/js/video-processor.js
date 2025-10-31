@@ -1511,30 +1511,56 @@
             placeholder.style.display = 'none';
             videoPlayer.style.display = 'block';
             
+            // Find the video container to manage play button visibility
+            const videoContainer = placeholder.closest('.video-container') || placeholder.parentElement;
+            
             // Start playing the video
             videoPlayer.load();
-            videoPlayer.play().catch(error => {
+            videoPlayer.play().then(() => {
+                // Mark container as playing to hide the play button
+                if (videoContainer) {
+                    videoContainer.setAttribute('data-playing', 'true');
+                }
+            }).catch(error => {
                 console.error('Error playing video:', error);
                 this.showError('Failed to play video');
                 // Restore placeholder if video fails
-                placeholder.style.display = 'flex';
+                placeholder.style.display = '';  // Remove inline style to use CSS
+                placeholder.style.visibility = 'visible';
                 videoPlayer.style.display = 'none';
+                if (videoContainer) {
+                    videoContainer.removeAttribute('data-playing');
+                }
+            });
+
+            // Add event listener to manage play button visibility
+            videoPlayer.addEventListener('play', () => {
+                if (videoContainer) {
+                    videoContainer.setAttribute('data-playing', 'true');
+                }
+            });
+
+            videoPlayer.addEventListener('pause', () => {
+                if (videoContainer) {
+                    videoContainer.removeAttribute('data-playing');
+                }
+                // Only restore placeholder if video has ended or is at the beginning
+                if (videoPlayer.currentTime === 0 || videoPlayer.ended) {
+                    placeholder.style.display = '';  // Remove inline style to use CSS
+                    placeholder.style.visibility = 'visible';
+                    videoPlayer.style.display = 'none';
+                }
             });
 
             // Add event listener to restore placeholder when video ends
             videoPlayer.addEventListener('ended', () => {
-                placeholder.style.display = 'flex';
+                if (videoContainer) {
+                    videoContainer.removeAttribute('data-playing');
+                }
+                placeholder.style.display = '';  // Remove inline style to use CSS
+                placeholder.style.visibility = 'visible';
                 videoPlayer.style.display = 'none';
                 videoPlayer.currentTime = 0; // Reset video to beginning
-            });
-
-            // Add event listener to restore placeholder if user pauses (optional)
-            videoPlayer.addEventListener('pause', () => {
-                // Only restore if video has ended or is at the beginning
-                if (videoPlayer.currentTime === 0 || videoPlayer.ended) {
-                    placeholder.style.display = 'flex';
-                    videoPlayer.style.display = 'none';
-                }
             });
 
             console.log('Inline video playback started for clip:', clipNumber);
@@ -1972,8 +1998,8 @@
                                             <div class="video-number" style="position: absolute; bottom: 8px; right: 8px; background: rgba(0, 0, 0, 0.8); color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; z-index: 15;">${clipNumber}</div>
                                             
                                             <!-- Play button -->
-                                            <div class="video-play-button" onclick="youtubeApp.playInlineVideo('${clip.clip_id || ''}', ${clipNumber})" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: rgba(0, 0, 0, 0.7); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;">
-                                                <i class="fas fa-play" style="font-size: 16px; color: white; margin-left: 2px;"></i>
+                                            <div class="video-play-button" onclick="youtubeApp.playInlineVideo('${clip.clip_id || ''}', ${clipNumber})">
+                                                <i class="fas fa-play"></i>
                                             </div>
                                         </div>
                                         <video class="inline-video-player" id="video-${clip.clip_id || ''}" style="display: none; width: 100%; aspect-ratio: 3/4; border-radius: 8px;" controls>

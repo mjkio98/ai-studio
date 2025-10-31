@@ -383,23 +383,58 @@
                 return;
             }
 
+            // Find the video container to manage play button visibility
+            const videoContainer = placeholder.closest('.video-container') || placeholder.parentElement;
+
             // Hide placeholder, show video
             placeholder.style.display = 'none';
             videoPlayer.style.display = 'block';
 
             // Play the video
-            videoPlayer.play().catch(error => {
+            videoPlayer.play().then(() => {
+                // Mark container as playing to hide the play button
+                if (videoContainer) {
+                    videoContainer.setAttribute('data-playing', 'true');
+                }
+            }).catch(error => {
                 console.error('Error playing video:', error);
-                placeholder.style.display = 'flex';
+                placeholder.style.display = '';  // Remove inline style to use CSS
+                placeholder.style.visibility = 'visible';
                 videoPlayer.style.display = 'none';
+                if (videoContainer) {
+                    videoContainer.removeAttribute('data-playing');
+                }
+            });
+
+            // Add event listeners to manage play button visibility
+            videoPlayer.addEventListener('play', () => {
+                if (videoContainer) {
+                    videoContainer.setAttribute('data-playing', 'true');
+                }
+            });
+
+            videoPlayer.addEventListener('pause', () => {
+                if (videoContainer) {
+                    videoContainer.removeAttribute('data-playing');
+                }
+                // Only restore placeholder if video has ended or is at the beginning
+                if (videoPlayer.currentTime === 0 || videoPlayer.ended) {
+                    placeholder.style.display = '';  // Remove inline style to use CSS
+                    placeholder.style.visibility = 'visible';
+                    videoPlayer.style.display = 'none';
+                }
             });
 
             // Reset when video ends
-            videoPlayer.onended = () => {
-                placeholder.style.display = 'flex';
+            videoPlayer.addEventListener('ended', () => {
+                if (videoContainer) {
+                    videoContainer.removeAttribute('data-playing');
+                }
+                placeholder.style.display = '';  // Remove inline style to use CSS
+                placeholder.style.visibility = 'visible';
                 videoPlayer.style.display = 'none';
                 videoPlayer.currentTime = 0;
-            };
+            });
         },
 
         /**

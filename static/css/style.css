@@ -2081,7 +2081,7 @@ a:focus-visible {
    ============================================ */
 #shorts-clips-container.video-clips-grid {
     display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
     gap: 20px !important;
     margin-top: 20px !important;
     padding: 0 !important;
@@ -2137,10 +2137,10 @@ a:focus-visible {
         text-align: center;
     }
     
-    /* Better tablet video grid - 2 columns minimum */
+    /* Better tablet video grid - 2-3 columns */
     #shorts-clips-container.video-clips-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 14px !important;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+        gap: 16px !important;
         padding: 0 8px !important;
     }
     
@@ -2424,9 +2424,9 @@ a:focus-visible {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     position: relative;
     color: white;
     cursor: pointer;
@@ -2454,7 +2454,7 @@ a:focus-visible {
     transform: translate(-50%, -50%);
     width: 60px;
     height: 60px;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -2462,6 +2462,7 @@ a:focus-visible {
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .video-play-button:hover {
@@ -2469,10 +2470,15 @@ a:focus-visible {
     transform: translate(-50%, -50%) scale(1.1);
 }
 
+/* Hide play button when video is playing */
+.video-container[data-playing="true"] .video-play-button {
+    display: none !important;
+}
+
 .video-play-button i {
     font-size: 24px;
     color: white;
-    margin-left: 3px; /* Slight offset to center triangle */
+    /* Remove margin to center the play icon perfectly */
 }
 
 /* Video Thumbnail Image */
@@ -3350,8 +3356,8 @@ a:focus-visible {
 /* Ensure grid layout is applied correctly */
 #shorts-clips-container.video-clips-grid {
     display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
-    gap: 12px !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 16px !important;
     padding: 0 !important;
     margin: 0 !important;
     width: 100% !important;
@@ -3361,8 +3367,8 @@ a:focus-visible {
 @media (max-width: 767px) {
     #shorts-clips-container.video-clips-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8px !important;
-        padding: 0 4px !important;
+        gap: 12px !important;
+        padding: 0 6px !important;
     }
     
     .video-clip-card {
