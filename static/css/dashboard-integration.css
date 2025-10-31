@@ -1152,35 +1152,6 @@ html[dir="rtl"] .sidenav {
 }
 
 /* ============================================
-   Dark Mode Support (Optional)
-   ============================================ */
-
-@media (prefers-color-scheme: dark) {
-    .youtube-content-wrapper {
-        background: #1a1a1a !important;
-        color: #e9ecef !important;
-        border-color: #404040 !important;
-    }
-    
-    .form-label {
-        color: #e9ecef !important;
-    }
-    
-    .single-input-group input[type="url"],
-    .url-input-row .youtube-url-multi {
-        background: #2d2d2d !important;
-        border-color: #404040 !important;
-        color: #e9ecef !important;
-    }
-    
-    .btn-mode {
-        background: #2d2d2d !important;
-        border-color: #404040 !important;
-        color: #e9ecef !important;
-    }
-}
-
-/* ============================================
    Sidebar Language Switcher
    ============================================ */
 
