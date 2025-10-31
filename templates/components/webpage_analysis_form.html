@@ -1,0 +1,111 @@
+<!-- Webpage Analysis Component -->
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="youtube-content-wrapper">
+                <div class="container">
+                    <!-- Header -->
+                    <header class="text-center mb-4">
+                        <h1 id="main-title" class="display-6 font-weight-bold mb-3">
+                            <i class="fas fa-globe text-primary me-2"></i>
+                            <span id="title-text" data-en="Webpage Analysis" data-ar="تحليل الصفحات">Webpage Analysis</span>
+                        </h1>
+                        <p id="subtitle-text" class="text-muted lead" data-en="Extract and analyze content from any webpage with AI-powered insights" data-ar="استخراج وتحليل المحتوى من أي صفحة ويب برؤى الذكاء الاصطناعي">Extract and analyze content from any webpage with AI-powered insights</p>
+                    </header>
+
+                    <!-- Main Card Content -->
+                    <div class="main-card">
+                        <!-- URL Input Section -->
+                        <div class="form-group">
+                            <div class="form-header">
+                                <label class="form-label">
+                                    <span id="url-label" data-en="Webpage URL" data-ar="رابط الصفحة">Webpage URL</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Webpage Analysis Input -->
+                            <div id="webpage-section">
+                                <div class="single-input-group">
+                                    <input 
+                                        type="url" 
+                                        id="webpage-url" 
+                                        class="form-control form-control-lg"
+                                        placeholder="https://example.com/article..." 
+                                        data-en="https://example.com/article..." 
+                                        data-ar="...رابط مقال أو صفحة"
+                                    >
+                                    <button 
+                                        id="analyze-webpage-btn" 
+                                        class="btn btn-primary btn-lg mt-3"
+                                    >
+                                        <i class="fas fa-globe me-2"></i>
+                                        <span id="analyze-webpage-text" data-en="Analyze Webpage" data-ar="حلل الصفحة">Analyze Webpage</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tip Section -->
+                        <div class="tip-section">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <span id="webpage-tip" data-en="Works best with: News articles, blog posts, Wikipedia pages. Some sites (Amazon, social media) may block automated access." data-ar="يعمل بشكل أفضل مع: المقالات الإخبارية، المدونات، وصفحات ويكيبيديا. بعض المواقع (أمازون، وسائل التواصل) قد تمنع الوصول التلقائي.">Works best with: News articles, blog posts, Wikipedia pages. Some sites (Amazon, social media) may block automated access.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status Messages -->
+                    <div id="status-container" class="hidden status-container">
+                        <!-- Loading State -->
+                        <div id="loading-state" class="status-message status-loading">
+                            <div class="spinner"></div>
+                            <div class="status-content">
+                                <span id="loading-text">Analyzing webpage...</span>
+                                <div class="progress-bar-container">
+                                    <div id="progress-bar" class="progress-bar"></div>
+                                </div>
+                                <button id="cancel-btn" class="btn btn-outline-secondary btn-sm mt-2">
+                                    <i class="fas fa-times me-1"></i>
+                                    <span data-en="Cancel" data-ar="إلغاء">Cancel</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Error State -->
+                        <div id="error-state" class="status-message status-error hidden">
+                            <div class="error-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="status-content">
+                                <h4 data-en="Error" data-ar="خطأ">Error</h4>
+                                <p id="error-message">An error occurred while analyzing the webpage.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Website Info Section -->
+                    <div id="webpage-info" class="webpage-info hidden">
+                        <div class="webpage-details">
+                            <div class="webpage-metadata">
+                                <h3 id="webpage-title"></h3>
+                                <p id="webpage-domain" class="text-muted"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Section -->
+                    <div id="summary-section" class="summary-section hidden">
+                        <div class="summary-header">
+                            <h2 id="summary-title" data-en="Webpage Analysis" data-ar="تحليل الصفحة">Webpage Analysis</h2>
+                            <button id="copy-summary-btn" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-copy me-1"></i>
+                                <span data-en="Copy" data-ar="نسخ">Copy</span>
+                            </button>
+                        </div>
+                        <div id="summary-text" class="summary-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

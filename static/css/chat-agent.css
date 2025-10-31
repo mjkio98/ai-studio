@@ -1,0 +1,196 @@
+/* ============================================
+   Minimal Chat Agent CSS - Essential Styles Only
+   ============================================ */
+
+/* Basic chat container */
+.modern-chat-app {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Chat header */
+.chat-header {
+    background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+    color: white;
+    padding: 1rem;
+    flex-shrink: 0;
+}
+
+/* Chat messages container */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background: #f5f7fa;
+}
+
+/* Message styling - minimal and clean */
+.chat-message {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.chat-message.user-message {
+    justify-content: flex-end;
+}
+
+.chat-message.ai-message {
+    justify-content: flex-start;
+}
+
+.message-content {
+    max-width: 70%;
+}
+
+.message-text {
+    padding: 0.75rem 1rem;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.user-message .message-text {
+    background: #007bff;
+    color: white;
+}
+
+.ai-message .message-text {
+    background: white;
+    color: #333;
+}
+
+/* Avatar */
+.message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.user-message .message-avatar {
+    background: #007bff;
+}
+
+.ai-message .message-avatar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Chat input */
+.chat-input-container {
+    padding: 1rem;
+    background: white;
+    border-top: 1px solid #e1e5e9;
+    flex-shrink: 0;
+}
+
+.input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.form-control {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    font-size: 16px;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
+/* Thinking interface - minimal styling */
+.thinking-message {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.thinking-container {
+    max-width: 70%;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    background: #f8fafc;
+    overflow: hidden;
+}
+
+.thinking-header {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.thinking-content {
+    background: white;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.thinking-content.collapsed {
+    max-height: 0;
+}
+
+.thinking-content.expanded {
+    max-height: 1000px;
+}
+
+.thinking-text {
+    padding: 0.75rem 1rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.thinking-toggle {
+    transition: transform 0.2s ease;
+}
+
+.thinking-container.expanded .thinking-toggle {
+    transform: rotate(180deg);
+}
+
+/* Simple responsive adjustments */
+@media (max-width: 768px) {
+    .message-content {
+        max-width: 85%;
+    }
+    
+    .thinking-container {
+        max-width: 85%;
+    }
+    
+    .chat-input-container {
+        padding: 0.75rem;
+    }
+    
+    .form-control {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block nav_content_active %}{% endblock %}
+{% block nav_multi_video_active %}active bg-gradient-primary{% endblock %}
+
+{% block breadcrumb %}
+<span data-en="Multi Video" data-ar="فيديوهات متعددة">Multi Video</span>
+{% endblock %}
+
+{% block content %}
+{% include 'components/multi_video_form.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<!-- Page-specific JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Only initialize if we have the right elements for multi video
+    if (window.PageUtils && window.PageUtils.isPage('multi-video')) {
+        console.log('Initializing Multi Video page functionality');
+        
+        // Initialize the main app if it exists
+        if (window.youtubeApp) {
+            // App already initialized by main-app.js
+            console.log('YouTube app already initialized');
+        }
+    } else {
+        console.log('Multi video elements not found, skipping initialization');
+    }
+});
+</script>
+{% endblock %}

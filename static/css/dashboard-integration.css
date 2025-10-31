@@ -1,0 +1,767 @@
+/* ============================================
+   YouTube Analyzer - Material Dashboard Integration
+   Custom styles for seamless integration
+   ============================================ */
+
+/* ============================================
+   Integration Overrides
+   ============================================ */
+
+/* Main content wrapper styling */
+.youtube-content-wrapper {
+    background: white;
+    border-radius: 0 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    padding: 1rem !important;
+    margin: 0 !important;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+@media (min-width: 576px) {
+    .youtube-content-wrapper {
+        padding: 1.5rem 1rem !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .youtube-content-wrapper {
+        padding: 2rem 1rem !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .youtube-content-wrapper {
+        padding: 2.5rem !important;
+        margin: 1rem !important;
+        border-radius: 1rem !important;
+        width: calc(100% - 2rem) !important;
+        max-width: calc(100% - 2rem) !important;
+    }
+}
+
+.youtube-content-wrapper:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Remove original container styling */
+.main-card {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.container {
+    max-width: none !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Ensure full width for main content container */
+.container-fluid {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: var(--bs-gutter-x, 0.75rem) !important;
+    padding-right: var(--bs-gutter-x, 0.75rem) !important;
+}
+
+@media (max-width: 575.98px) {
+    .container-fluid {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .container-fluid {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+
+/* Ensure Bootstrap grid is full width */
+.row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+}
+
+.col-12 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* ============================================
+   Form Styling Enhancements
+   ============================================ */
+
+/* Form groups */
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #344767;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* Mode buttons styling */
+.mode-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-mode {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #dee2e6;
+    background: white;
+    color: #6c757d;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.btn-mode:hover {
+    border-color: #e91e63;
+    color: #e91e63;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(233, 30, 99, 0.15);
+}
+
+.btn-mode.active {
+    background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+    border-color: #e91e63;
+    color: white;
+    box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3);
+}
+
+/* ============================================
+   Input Styling
+   ============================================ */
+
+.single-input-group {
+    margin-top: 1.5rem;
+}
+
+.single-input-group input[type="url"] {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 2px solid #dee2e6;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.single-input-group input[type="url"]:focus {
+    outline: none;
+    border-color: #e91e63;
+    box-shadow: 0 0 0 0.2rem rgba(233, 30, 99, 0.25);
+}
+
+/* Multiple video inputs */
+.input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.url-input-row .youtube-url-multi {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid #dee2e6;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.url-input-row .youtube-url-multi:focus {
+    outline: none;
+    border-color: #e91e63;
+    box-shadow: 0 0 0 0.2rem rgba(233, 30, 99, 0.25);
+}
+
+/* ============================================
+   Button Styling
+   ============================================ */
+
+.btn-primary {
+    background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%) !important;
+    border: none !important;
+    padding: 1rem 2rem !important;
+    border-radius: 0.75rem !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3) !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 12px rgba(233, 30, 99, 0.4) !important;
+}
+
+.btn-outline-primary {
+    border-color: #e91e63 !important;
+    color: #e91e63 !important;
+    border-width: 2px !important;
+    font-weight: 500 !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-outline-primary:hover {
+    background: #e91e63 !important;
+    border-color: #e91e63 !important;
+    color: white !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3);
+}
+
+.btn-outline-danger {
+    border-color: #dc3545 !important;
+    color: #dc3545 !important;
+    border-width: 2px !important;
+}
+
+.btn-outline-danger:hover {
+    background: #dc3545 !important;
+    border-color: #dc3545 !important;
+    color: white !important;
+}
+
+/* ============================================
+   Language Switcher
+   ============================================ */
+
+.language-switcher {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.language-switcher .btn {
+    border-radius: 0.5rem !important;
+    font-size: 0.875rem !important;
+    padding: 0.5rem 1rem !important;
+    font-weight: 500 !important;
+}
+
+.language-switcher .btn.active {
+    background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%) !important;
+    border-color: #e91e63 !important;
+    color: white !important;
+}
+
+/* ============================================
+   Status Messages
+   ============================================ */
+
+.alert {
+    border-radius: 0.75rem !important;
+    border: none !important;
+    padding: 1.5rem !important;
+    margin-top: 2rem;
+}
+
+.alert-info {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
+    color: #1976d2 !important;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%) !important;
+    color: #d32f2f !important;
+}
+
+.spinner-border-sm {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-width: 0.15em;
+}
+
+/* ============================================
+   Video Info Card
+   ============================================ */
+
+#video-info .card {
+    border: none !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease;
+}
+
+#video-info .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.15) !important;
+}
+
+#video-thumbnail {
+    border-radius: 0.75rem !important;
+    border: 2px solid #f8f9fa;
+}
+
+.badge {
+    border-radius: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%) !important;
+}
+
+.bg-gradient-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%) !important;
+}
+
+/* ============================================
+   Summary Section
+   ============================================ */
+
+#summary-section .card {
+    border: none !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+#summary-section .card-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    border-radius: 1rem 1rem 0 0 !important;
+    padding: 1.5rem !important;
+}
+
+#summary-section .card-body {
+    padding: 2rem !important;
+}
+
+#summary-section .card-footer {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    border-top: 1px solid #dee2e6 !important;
+    border-radius: 0 0 1rem 1rem !important;
+    padding: 1rem !important;
+}
+
+.summary-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #495057;
+}
+
+/* ============================================
+   Sidebar Enhancements
+   ============================================ */
+
+.sidenav .nav-link {
+    border-radius: 0.75rem !important;
+    margin: 0.25rem 0.5rem !important;
+    padding: 0.75rem 1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.sidenav .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    transform: translateX(5px);
+}
+
+.sidenav .nav-link.active {
+    background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%) !important;
+    box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3) !important;
+}
+
+.sidenav .navbar-brand {
+    padding: 1.5rem 1rem !important;
+}
+
+.sidenav .navbar-brand i {
+    font-size: 2rem !important;
+    margin-right: 0.75rem !important;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 575.98px) {
+    .youtube-content-wrapper {
+        padding: 0.75rem !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .mode-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+    
+    .btn-mode {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem;
+    }
+    
+    .single-input-group input[type="url"] {
+        padding: 0.75rem 0.875rem;
+        font-size: 0.875rem;
+    }
+    
+    .btn-primary {
+        width: 100% !important;
+        padding: 0.875rem 1.5rem !important;
+        font-size: 0.875rem !important;
+    }
+    
+    .input-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .url-input-row .youtube-url-multi {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .remove-url-btn {
+        width: 100%;
+        margin-left: 0 !important;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .youtube-content-wrapper {
+        padding: 1.25rem 1rem !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 0 !important;
+    }
+    
+    .mode-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .btn-mode {
+        min-width: 120px;
+        flex: 1 1 auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .youtube-content-wrapper {
+        padding: 1.75rem 1rem !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .language-switcher {
+        justify-content: center;
+        margin: 1rem 0;
+    }
+    
+    .mode-buttons {
+        justify-content: center;
+    }
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mb-5 { margin-bottom: 3rem !important; }
+
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: 0.25rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+.mt-4 { margin-top: 1.5rem !important; }
+.mt-5 { margin-top: 3rem !important; }
+
+.py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+
+.display-4 { font-size: 2.5rem !important; }
+
+.lead { font-size: 1.25rem !important; font-weight: 300 !important; }
+
+/* ============================================
+   Animation Enhancements
+   ============================================ */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.youtube-content-wrapper {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Loading spinner enhancement */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spinner-border {
+    animation: spin 1s linear infinite;
+}
+
+/* ============================================
+   RTL Support
+   ============================================ */
+
+html[dir="rtl"] body {
+    text-align: right;
+}
+
+html[dir="rtl"] .youtube-content-wrapper {
+    text-align: right;
+}
+
+html[dir="rtl"] .mode-buttons {
+    justify-content: flex-end;
+}
+
+html[dir="rtl"] .language-switcher {
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+}
+
+html[dir="rtl"] .language-switcher .btn {
+    margin-inline: 0;
+}
+
+/* Sidebar containment - ensure no elements go outside container */
+html[dir="rtl"] .sidenav {
+    /* overflow: hidden !important; */ /* Removed - was cutting off menu items */
+    margin-right: 1rem !important;
+    margin-left: 0 !important;
+    width: 17.5rem !important; /* Wider than English to accommodate Arabic text */
+    max-width: 17.5rem !important;
+    min-width: 17.5rem !important;
+}
+
+@media (min-width: 1200px) {
+    html[dir="rtl"] .sidenav.fixed-end + .main-content {
+        margin-right: 19rem !important; /* Adjusted for wider sidebar */
+        margin-left: 0 !important;
+    }
+}
+
+html[dir="rtl"] .sidenav .navbar-nav {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 !important;
+}
+
+html[dir="rtl"] .sidenav .nav-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+}
+
+html[dir="rtl"] .sidenav .nav-link {
+    display: flex !important;
+    flex-direction: row-reverse !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: right !important;
+    gap: 0.5rem !important;
+    width: calc(100% - 1rem) !important; /* Reduced from 100% to account for margins */
+    max-width: calc(100% - 1rem) !important;
+    padding: 0.75rem 0.75rem !important; /* Reduced padding to fit better */
+    margin: 0.25rem 0.5rem !important;
+    box-sizing: border-box !important;
+    /* overflow: hidden !important; */ /* Removed - let content flow naturally */
+}
+
+html[dir="rtl"] .sidenav .nav-link .nav-link-text {
+    margin: 0 !important;
+    margin-right: 0.25rem !important;
+    padding: 0 !important;
+    display: block !important;
+    text-align: right !important;
+    direction: rtl !important;
+    flex: 1 1 auto !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: calc(100% - 3rem) !important;
+}
+
+html[dir="rtl"] .sidenav .nav-link > div {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    width: 2rem !important;
+    min-width: 2rem !important;
+    max-width: 2rem !important;
+}
+
+html[dir="rtl"] .sidenav h6 {
+    text-align: right !important;
+    direction: rtl !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    /* overflow: hidden !important; */ /* Removed - was cutting off text */
+}
+
+/* Brand logo containment */
+html[dir="rtl"] .sidenav .navbar-brand {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    text-align: right !important;
+    direction: rtl !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+    /* overflow: hidden !important; */ /* Removed - was cutting off brand text */
+    margin: 0 !important;
+}
+
+html[dir="rtl"] .sidenav .navbar-brand span {
+    margin-right: 0.5rem !important;
+    margin-left: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Sidebar header containment */
+html[dir="rtl"] .sidenav .sidenav-header {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    /* overflow: hidden !important; */ /* Removed - was cutting off content */
+    box-sizing: border-box !important;
+}
+
+/* Collapse container containment */
+html[dir="rtl"] .sidenav .navbar-collapse {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    /* overflow: hidden !important; */ /* Removed - was hiding menu items */
+    box-sizing: border-box !important;
+}
+
+html[dir="rtl"] .input-row {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .input-row .remove-url-btn {
+    margin-left: 0;
+    margin-right: 0.75rem;
+}
+
+body.rtl .sidenav {
+    right: 0;
+    left: auto;
+}
+
+body.rtl .main-content {
+    margin-left: 0;
+    margin-right: 17.125rem;
+}
+
+@media (max-width: 1199.98px) {
+    body.rtl .main-content {
+        margin-right: 0;
+    }
+}
+
+/* ============================================
+   Dark Mode Support (Optional)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+    .youtube-content-wrapper {
+        background: #1a1a1a !important;
+        color: #e9ecef !important;
+        border-color: #404040 !important;
+    }
+    
+    .form-label {
+        color: #e9ecef !important;
+    }
+    
+    .single-input-group input[type="url"],
+    .url-input-row .youtube-url-multi {
+        background: #2d2d2d !important;
+        border-color: #404040 !important;
+        color: #e9ecef !important;
+    }
+    
+    .btn-mode {
+        background: #2d2d2d !important;
+        border-color: #404040 !important;
+        color: #e9ecef !important;
+    }
+}

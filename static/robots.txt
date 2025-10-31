@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /api/health
+Disallow: /api/extract-transcript
+Disallow: /api/summarize
+Disallow: /api/process-video
+Disallow: /api/process-multiple-videos
+
+# Sitemap location (you can add this later)
+# Sitemap: https://youtube-summarizer-jnp5egizua-uc.a.run.app/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

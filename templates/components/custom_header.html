@@ -1,0 +1,52 @@
+<!-- Minimal Custom Header - Toggle Button & Language Switcher Only -->
+<header class="custom-header" id="custom-header">
+    <nav class="custom-navbar">
+        <div class="navbar-container">
+            <!-- Mobile Menu Toggle Button -->
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <!-- Language Switcher -->
+            <div class="language-switcher">
+                <button id="lang-en-header" type="button" class="lang-btn active" data-lang="en" title="Switch to English">
+                    <span class="lang-flag">🇺🇸</span>
+                    <span class="lang-text" data-en="EN" data-ar="EN">EN</span>
+                </button>
+                <button id="lang-ar-header" type="button" class="lang-btn" data-lang="ar" title="Switch to Arabic">
+                    <span class="lang-flag">🇸🇦</span>
+                    <span class="lang-text" data-en="AR" data-ar="العر">AR</span>
+                </button>
+            </div>
+
+            <!-- Hidden Navigation Menu (shown when mobile menu is toggled) -->
+            <div class="navbar-menu" id="navbar-menu">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/single-video" class="nav-link {% block nav_single_video_active %}{% endblock %}" id="header-nav-single-video">
+                            <i class="fas fa-play nav-icon"></i>
+                            <span class="nav-text" data-en="Single Video" data-ar="فيديو واحد">Single Video</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/shorts-generator" class="nav-link {% block nav_shorts_generator_active %}{% endblock %}" id="header-nav-shorts-generator">
+                            <i class="fas fa-cut nav-icon"></i>
+                            <span class="nav-text" data-en="Shorts Generator" data-ar="مولد الشورتس">Shorts Generator</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/chat-agent" class="nav-link {% block nav_chat_agent_active %}{% endblock %}" id="header-nav-chat-agent">
+                            <i class="fas fa-comments nav-icon"></i>
+                            <span class="nav-text" data-en="Chat Agent" data-ar="وكيل المحادثة">Chat Agent</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+</header>

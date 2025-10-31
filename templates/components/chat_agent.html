@@ -1,0 +1,141 @@
+<!-- Modern Chat Interface -->
+<div id="chat-agent-section" class="modern-chat-app">
+    <!-- Chat Header -->
+    <header class="chat-header">
+        <div class="chat-header-content">
+            <div class="chat-title-section">
+                <div class="chat-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="chat-title-info">
+                    <h1 class="chat-main-title" data-en="AI Assistant" data-ar="المساعد الذكي">AI Assistant</h1>
+                    <p class="chat-subtitle" data-en="Webpage Analyzer & General Chat" data-ar="محلل صفحات الويب والدردشة العامة">Webpage Analyzer & General Chat</p>
+                </div>
+            </div>
+            <div class="chat-header-actions">
+                <div class="analysis-mode-selector">
+                    <select id="analysis-mode-select" class="mode-select">
+                        <option value="fast" data-en="🚀 Fast Analysis" data-ar="🚀 تحليل سريع">🚀 Fast Analysis</option>
+                        <option value="deep" data-en="🔍 Deep Analysis" data-ar="🔍 تحليل عميق">🔍 Deep Analysis</option>
+                    </select>
+                </div>
+                <button class="header-btn" id="summarize-page-btn" title="Summarize">
+                    <i class="fas fa-file-text"></i>
+                </button>
+                <button class="header-btn" id="clear-chat-btn" title="Clear Chat">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Chat Messages Area -->
+    <main class="chat-messages-area" id="chat-messages">
+        <!-- Welcome Message -->
+        <div class="welcome-container">
+            <div class="welcome-avatar">
+                <i class="fas fa-globe"></i>
+            </div>
+            <div class="welcome-message">
+                <h2 data-en="Welcome! 👋" data-ar="مرحباً! 👋">Welcome! 👋</h2>
+                <p data-en="Send me a webpage URL to analyze website content, or ask any general question!" data-ar="أرسل لي رابط صفحة ويب لتحليل محتوى الموقع، أو اسأل أي سؤال عام!">Send me a webpage URL to analyze website content, or ask any general question!</p>
+                <div class="example-bubble">
+                    <span class="example-label" data-en="Try:" data-ar="جرب:">Try:</span>
+                    <code>https://example.com</code> <span data-en="or" data-ar="أو">or</span> <code data-en="What is AI?" data-ar="ما هو الذكاء الاصطناعي؟">What is AI?</code>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- AI Thinking Animation (Template) -->
+    <div id="ai-thinking" class="hidden">
+        <div class="message-container ai-message">
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-bubble ai-bubble">
+                <div class="thinking-animation">
+                    <div class="thinking-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="thinking-text" data-en="AI is thinking..." data-ar="الذكاء الاصطناعي يفكر...">AI is thinking...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collapsible Thinking UI Template (DeepSeek-style) -->
+    <div id="thinking-template" class="hidden">
+        <div class="thinking-message">
+            <div class="message-avatar">
+                <i class="fas fa-brain"></i>
+            </div>
+            <div class="thinking-container">
+                <div class="thinking-header" role="button" tabindex="0">
+                    <div class="thinking-header-content">
+                        <div class="thinking-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <span class="thinking-label" data-en="Thinking Process" data-ar="عملية التفكير">Thinking Process</span>
+                        <div class="thinking-status">
+                            <span class="thinking-status-text" data-en="Processing..." data-ar="جار المعالجة...">Processing...</span>
+                        </div>
+                    </div>
+                    <div class="thinking-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="thinking-content collapsed">
+                    <div class="thinking-text">
+                        <!-- Thinking content will be streamed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Typing Indicator -->
+    <div id="typing-indicator" class="typing-indicator hidden">
+        <div class="typing-avatar">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="typing-bubble">
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Input Area -->
+    <footer class="chat-input-area">
+        <div class="input-container">
+            <div class="input-wrapper">
+                <input 
+                    type="text" 
+                    id="chat-input"
+                    class="chat-input"
+                    placeholder="Enter URL to analyze webpage, or ask any question..."
+                    data-en="Enter URL to analyze webpage, or ask any question..."
+                    data-ar="أدخل رابط لتحليل صفحة ويب، أو اسأل أي سؤال..."
+                    maxlength="2000"
+                    autocomplete="off"
+                >
+                <button id="send-message-btn" class="send-btn" disabled>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <button id="stop-message-btn" class="stop-btn hidden" title="Stop Generation">
+                    <i class="fas fa-stop"></i>
+                </button>
+            </div>
+        </div>
+        <div class="input-footer">
+            <span class="char-counter">
+                <span id="char-count">0</span>/2000
+            </span>
+        </div>
+    </footer>
+</div>

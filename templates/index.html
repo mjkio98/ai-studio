@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google Analytics 4 -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTSHZ6V3D1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VTSHZ6V3D1');
+    </script>
+    
+    <!-- SEO Meta Tags -->
+    <title>YouTube Transcript & Summary - AI-Powered Video Analysis Tool</title>
+    <meta name="description" content="Extract transcripts from YouTube videos and generate AI-powered summaries in Arabic and English. Fast, accurate, and free YouTube video analysis tool with multi-language support.">
+    <meta name="keywords" content="YouTube transcript, video summary, AI summary, Arabic transcript, English transcript, video analysis, YouTube tools, transcript extractor, AI video analysis">
+    <meta name="author" content="YouTube Summarizer">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="en">
+    
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="UQiAcERYgmfQLiOiVIKejz5h2zLAvuR_1rWgoAwb0lI">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="YouTube Transcript & Summary - AI-Powered Video Analysis">
+    <meta property="og:description" content="Extract transcripts from YouTube videos and generate AI-powered summaries in Arabic and English. Fast, accurate, and free.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://youtube-summarizer-jnp5egizua-uc.a.run.app">
+    <meta property="og:image" content="https://youtube-summarizer-jnp5egizua-uc.a.run.app/static/images/og-image.jpg">
+    <meta property="og:site_name" content="YouTube Summarizer">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ar_SA">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="YouTube Transcript & Summary - AI-Powered Video Analysis">
+    <meta name="twitter:description" content="Extract transcripts from YouTube videos and generate AI-powered summaries in Arabic and English.">
+    <meta name="twitter:image" content="https://youtube-summarizer-jnp5egizua-uc.a.run.app/static/images/twitter-card.jpg">
+    <meta name="twitter:creator" content="@YouTubeSummarizer">
+    
+    <!-- Additional SEO Tags -->
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="msapplication-TileColor" content="#3B82F6">
+    <meta name="application-name" content="YouTube Summarizer">
+    <link rel="canonical" href="https://youtube-summarizer-jnp5egizua-uc.a.run.app">
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Structured Data (JSON-LD) for Rich Snippets -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "YouTube Transcript & Summary",
+        "description": "AI-powered tool to extract transcripts from YouTube videos and generate summaries in multiple languages",
+        "url": "https://youtube-summarizer-jnp5egizua-uc.a.run.app",
+        "applicationCategory": "Utility",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "YouTube Summarizer"
+        },
+        "featureList": [
+            "YouTube transcript extraction",
+            "AI-powered video summaries", 
+            "Arabic and English language support",
+            "Multi-video synthesis",
+            "Free to use"
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <!-- Language Switcher -->
+            <div class="language-switcher">
+                <button id="lang-en" class="active">
+                    English
+                </button>
+                <button id="lang-ar">
+                    العربية
+                </button>
+            </div>
+            
+            <h1 id="main-title">
+                <i class="fab fa-youtube"></i>
+                <span id="title-text">YouTube Transcript & Summary</span>
+            </h1>
+            <p id="subtitle-text">Extract video transcripts and summarize with GPT</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-card">
+            <!-- URL Input Section -->
+            <div class="form-group">
+                <div class="form-header">
+                    <label class="form-label">
+                        <span id="url-label">YouTube Video URLs</span>
+                    </label>
+                    <div class="mode-buttons">
+                        <button id="single-mode-btn" class="btn-mode active">
+                            <span id="single-mode-text">Single Video</span>
+                        </button>
+                        <button id="multi-mode-btn" class="btn-mode">
+                            <span id="multi-mode-text">Multiple Videos</span>
+                        </button>
+                        <button id="webpage-mode-btn" class="btn-mode">
+                            <span id="webpage-mode-text">Webpage Analysis</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Single Video Mode -->
+                <div id="single-video-section" class="single-input-group">
+                    <input 
+                        type="url" 
+                        id="youtube-url" 
+                        placeholder="https://www.youtube.com/watch?v=..."
+                    >
+                    <button 
+                        id="summarize-video-btn" 
+                        class="btn-primary"
+                    >
+                        <i class="fas fa-magic"></i>
+                        <span id="summarize-btn-text">Summarize Video</span>
+                    </button>
+                </div>
+                
+                <!-- Multiple Videos Mode -->
+                <div id="multi-video-section" class="hidden">
+                    <div class="input-container" id="url-inputs-container">
+                        <div class="input-row url-input-row">
+                            <input 
+                                type="url" 
+                                class="youtube-url-multi"
+                                placeholder="https://www.youtube.com/watch?v=... (Video 1)"
+                            >
+                            <button type="button" class="btn-icon danger remove-url-btn" title="Remove URL">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="input-row url-input-row">
+                            <input 
+                                type="url" 
+                                class="youtube-url-multi"
+                                placeholder="https://www.youtube.com/watch?v=... (Video 2)"
+                            >
+                            <button type="button" class="btn-icon danger remove-url-btn" title="Remove URL">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="multi-actions mt-md">
+                        <button id="add-url-btn" class="btn-secondary">
+                            <i class="fas fa-plus"></i>
+                            <span id="add-url-text">Add Another URL</span>
+                        </button>
+                        <button 
+                            id="summarize-multi-btn" 
+                            class="btn-primary"
+                        >
+                            <i class="fas fa-layer-group"></i>
+                            <span id="summarize-multi-text">Compare & Summarize</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Webpage Analysis Mode -->
+                <div id="webpage-section" class="hidden">
+                    <div class="single-input-group">
+                        <input 
+                            type="url" 
+                            id="webpage-url" 
+                            placeholder="https://example.com/article..." 
+                            data-en="https://example.com/article..." 
+                            data-ar="...رابط مقال أو صفحة"
+                        >
+                        <button 
+                            id="analyze-webpage-btn" 
+                            class="btn-primary"
+                        >
+                            <i class="fas fa-globe"></i>
+                            <span id="analyze-webpage-text" data-en="Analyze Webpage" data-ar="حلل الصفحة">Analyze Webpage</span>
+                        </button>
+                    </div>
+                    <!-- Helpful tip -->
+                    <div class="mt-sm text-sm">
+                        <i class="fas fa-info-circle"></i>
+                        <span id="webpage-tip" data-en="Works best with: News articles, blog posts, Wikipedia pages. Some sites (Amazon, social media) may block automated access." data-ar="يعمل بشكل أفضل مع: المقالات الإخبارية، المدونات، وصفحات ويكيبيديا. بعض المواقع (أمازون، وسائل التواصل) قد تمنع الوصول التلقائي.">Works best with: News articles, blog posts, Wikipedia pages. Some sites (Amazon, social media) may block automated access.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Messages -->
+            <div id="status-container" class="hidden status-container">
+                <!-- Loading State -->
+                <div id="loading-state" class="status-message status-loading">
+                    <div class="spinner"></div>
+                    <div class="status-content">
+                        <span id="loading-text">Processing video...</span>
+                    </div>
+                    <div class="status-actions">
+                        <button 
+                            id="cancel-btn" 
+                            class="btn-secondary hidden"
+                            title="Cancel current operation">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Error State -->
+                <div id="error-state" class="hidden status-message status-error">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="status-content">
+                        <h3 class="font-semibold">Error</h3>
+                        <p class="text-sm mt-sm" id="error-message"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Info (shown after processing) -->
+            <div id="video-info" class="hidden video-info-card">
+                <img id="video-thumbnail" class="video-thumbnail" alt="Video thumbnail">
+                <div class="video-details">
+                    <h3 id="video-title" class="video-title"></h3>
+                    <p id="video-channel" class="video-channel"></p>
+                    <div class="video-meta">
+                        <span class="video-badge">
+                            <i class="fas fa-robot"></i>
+                            Summarized with GPT
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Section -->
+            <div id="summary-section" class="hidden">
+                <div class="summary-container">
+                    <div class="summary-header">
+                        <h2>Summary</h2>
+                        <button id="copy-summary-btn" class="btn-secondary" title="Copy summary to clipboard">
+                            <i class="fas fa-copy"></i>
+                            <span id="copy-btn-text">Copy Summary</span>
+                        </button>
+                    </div>
+                    <div class="summary-content">
+                        <div id="summary-text" class="summary-text">
+                            <div class="text-center" style="padding: 3rem 0; color: var(--text-tertiary);">
+                                <i class="fas fa-magic" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                                <p>Summary will appear here...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Summary Footer -->
+                <div class="summary-footer">
+                    <div class="summary-badge">
+                        <i class="fas fa-robot"></i>
+                        Powered by GPT
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load managers and components in order -->
+    <script src="{{ url_for('static', filename='js/cache-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/language-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/streaming-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/video-processor.js') }}"></script>
+    <!-- Load main app last -->
+    <script src="{{ url_for('static', filename='js/main-app.js') }}"></script>
+</body>
+</html>

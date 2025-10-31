@@ -1,0 +1,380 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <!-- Main Content Container -->
+        <div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="youtube-content-wrapper">
+                        <div class="container">
+                            <!-- Header -->
+                            <header class="text-center mb-4">
+                                <h1 id="main-title" class="display-6 font-weight-bold mb-3">
+                                    <i class="fas fa-robot text-primary me-2"></i>
+                                    <span id="title-text" data-en="AI Studio" data-ar="استوديو الذكاء الاصطناعي">AI Studio</span>
+                                </h1>
+                                <p id="subtitle-text" class="text-muted lead" data-en="AI-powered content analysis and summarization" data-ar="تحليل وتلخيص المحتوى بالذكاء الاصطناعي">AI-powered content analysis and summarization</p>
+                            </header>
+
+                            <!-- Main Card Content -->
+                            <div class="main-card">
+                                <!-- URL Input Section -->
+                                <div class="form-group">
+                                    <div class="form-header">
+                                        <label class="form-label">
+                                            <span id="url-label" data-en="YouTube Video URLs" data-ar="رابط الفيديو">YouTube Video URLs</span>
+                                        </label>
+                                        <div class="mode-buttons">
+                                            <button id="single-mode-btn" class="btn-mode active">
+                                                <span id="single-mode-text" data-en="Video Summary" data-ar="ملخص الفيديو">Video Summary</span>
+                                            </button>
+                                            <button id="shorts-mode-btn" class="btn-mode hidden">
+                                                <span id="shorts-mode-text" data-en="Shorts Generator" data-ar="مولد الشورتس">Shorts Generator</span>
+                                            </button>
+                                            <button id="multi-mode-btn" class="btn-mode hidden">
+                                                <span id="multi-mode-text" data-en="Multiple Videos" data-ar="فيديوهات متعددة">Multiple Videos</span>
+                                            </button>
+                                            <button id="webpage-mode-btn" class="btn-mode">
+                                                <span id="webpage-mode-text" data-en="Webpage Analysis" data-ar="تحليل الصفحة">Webpage Analysis</span>
+                                            </button>
+                                            <button id="chat-agent-mode-btn" class="btn-mode hidden">
+                                                <span id="chat-agent-mode-text" data-en="Chat Agent" data-ar="وكيل المحادثة">Chat Agent</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Single Video Mode -->
+                                    <div id="single-video-section" class="single-input-group">
+                                        <input 
+                                            type="url" 
+                                            id="youtube-url" 
+                                            placeholder="https://www.youtube.com/watch?v=..."
+                                            data-en="https://www.youtube.com/watch?v=..."
+                                            data-ar="https://www.youtube.com/watch?v=..."
+                                            class="form-control form-control-lg"
+                                        >
+                                        <button 
+                                            id="summarize-video-btn" 
+                                            class="btn btn-primary btn-lg mt-3"
+                                        >
+                                            <i class="fas fa-magic me-2"></i>
+                                            <span id="summarize-btn-text" data-en="Summarize Video" data-ar="لخص الفيديو">Summarize Video</span>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Shorts Generator Mode -->
+                                    <div id="shorts-generation-section" class="hidden">
+                                        <div class="single-input-group">
+                                            <input 
+                                                type="url" 
+                                                id="shorts-youtube-url" 
+                                                placeholder="https://www.youtube.com/watch?v=..."
+                                                data-en="https://www.youtube.com/watch?v=..."
+                                                data-ar="https://www.youtube.com/watch?v=..."
+                                                class="form-control form-control-lg"
+                                            >
+                                            <button 
+                                                id="generate-shorts-btn" 
+                                                class="btn btn-primary btn-lg mt-3"
+                                            >
+                                                <i class="fas fa-cut me-2"></i>
+                                                <span id="generate-shorts-text" data-en="Generate Shorts" data-ar="إنشاء الشورتس">Generate Shorts</span>
+                                            </button>
+                                        </div>
+                             
+                                    </div>
+                                    
+                                    <!-- Multiple Videos Mode -->
+                                    <div id="multi-video-section" class="hidden">
+                                        <div class="input-container" id="url-inputs-container">
+                                            <div class="input-row url-input-row mb-3">
+                                                <input 
+                                                    type="url" 
+                                                    class="youtube-url-multi form-control"
+                                                    placeholder="https://www.youtube.com/watch?v=... (Video 1)"
+                                                    data-en="https://www.youtube.com/watch?v=... (Video 1)"
+                                                    data-ar="https://www.youtube.com/watch?v=... (فيديو 1)"
+                                                >
+                                                <button type="button" class="btn btn-outline-danger btn-sm ms-2 remove-url-btn" title="Remove URL">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                            <div class="input-row url-input-row mb-3">
+                                                <input 
+                                                    type="url" 
+                                                    class="youtube-url-multi form-control"
+                                                    placeholder="https://www.youtube.com/watch?v=... (Video 2)"
+                                                    data-en="https://www.youtube.com/watch?v=... (Video 2)"
+                                                    data-ar="https://www.youtube.com/watch?v=... (فيديو 2)"
+                                                >
+                                                <button type="button" class="btn btn-outline-danger btn-sm ms-2 remove-url-btn" title="Remove URL">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="multi-actions mt-3">
+                                            <button id="add-url-btn" class="btn btn-outline-primary me-2">
+                                                <i class="fas fa-plus me-2"></i>
+                                                <span id="add-url-text" data-en="Add Another URL" data-ar="أضف رابط آخر">Add Another URL</span>
+                                            </button>
+                                            <button 
+                                                id="summarize-multi-btn" 
+                                                class="btn btn-primary btn-lg"
+                                            >
+                                                <i class="fas fa-layer-group me-2"></i>
+                                                <span id="summarize-multi-text" data-en="Compare & Summarize" data-ar="قارن ولخص">Compare & Summarize</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Webpage Analysis Mode -->
+                                    <div id="webpage-section" class="hidden">
+                                        <div class="single-input-group">
+                                            <input 
+                                                type="url" 
+                                                id="webpage-url" 
+                                                class="form-control form-control-lg"
+                                                placeholder="https://example.com/article..." 
+                                                data-en="https://example.com/article..." 
+                                                data-ar="...رابط مقال أو صفحة"
+                                            >
+                                            <button 
+                                                id="analyze-webpage-btn" 
+                                                class="btn btn-primary btn-lg mt-3"
+                                            >
+                                                <i class="fas fa-globe me-2"></i>
+                                                <span id="analyze-webpage-text" data-en="Analyze Webpage" data-ar="حلل الصفحة">Analyze Webpage</span>
+                                            </button>
+                                        </div>
+                                        <!-- Helpful tip -->
+                                        <div class="mt-3">
+                                            <div class="alert alert-info">
+                                                <i class="fas fa-info-circle me-2"></i>
+                                                <span id="webpage-tip" data-en="Works best with: News articles, blog posts, Wikipedia pages. Some sites (Amazon, social media) may block automated access." data-ar="يعمل بشكل أفضل مع: المقالات الإخبارية، المدونات، وصفحات ويكيبيديا. بعض المواقع (أمازون، وسائل التواصل) قد تمنع الوصول التلقائي.">Works best with: News articles, blog posts, Wikipedia pages. Some sites (Amazon, social media) may block automated access.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Chat Agent Mode -->
+                                    {% include 'components/chat_agent.html' %}
+                                </div>
+
+                                <!-- Status Messages -->
+                                <div id="status-container" class="hidden mt-4">
+                                    <!-- Loading State -->
+                                    <div id="loading-state" class="alert alert-info">
+                                        <div class="d-flex align-items-center">
+                                            <div class="spinner-border spinner-border-sm me-3" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <span id="loading-text" data-en="Processing video..." data-ar="معالجة الفيديو...">Processing video...</span>
+                                            </div>
+                                            <button 
+                                                id="cancel-btn" 
+                                                class="btn btn-outline-secondary btn-sm hidden"
+                                                title="Cancel current operation"
+                                                data-en="Cancel" data-ar="إلغاء">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Error State -->
+                                    <div id="error-state" class="hidden alert alert-danger">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-exclamation-triangle me-3 mt-1"></i>
+                                            <div class="flex-grow-1">
+                                                <h6 class="alert-heading" data-en="Error" data-ar="خطأ">Error</h6>
+                                                <p class="mb-0" id="error-message"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Video Info (shown after processing) -->
+                                <div id="video-info" class="hidden mt-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <img id="video-thumbnail" class="rounded" style="width: 120px; height: 90px; object-fit: cover;" alt="Video thumbnail">
+                                                </div>
+                                                <div class="col">
+                                                    <h5 id="video-title" class="card-title mb-2"></h5>
+                                                    <p id="video-channel" class="card-text text-muted mb-2"></p>
+                                                    <div class="video-meta">
+                                                        <span class="badge bg-gradient-primary">
+                                                            <i class="fas fa-robot me-1"></i>
+                                                            <span data-en="Summarized with GPT" data-ar="ملخص بواسطة GPT">Summarized with GPT</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Summary Section -->
+                                <div id="summary-section" class="hidden mt-4">
+                                    <div class="card">
+                                        <div class="card-header pb-0">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h4 class="mb-0" id="summary-title" data-en="Summary" data-ar="الملخص">Summary</h4>
+                                                <button id="copy-summary-btn" class="btn btn-outline-primary btn-sm" title="Copy summary to clipboard">
+                                                    <i class="fas fa-copy me-1"></i>
+                                                    <span id="copy-btn-text" data-en="Copy Summary" data-ar="نسخ الملخص">Copy Summary</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="summary-text" class="summary-text">
+                                                <div class="text-center py-5 text-muted">
+                                                    <i class="fas fa-magic display-4 mb-3"></i>
+                                                    <p data-en="Summary will appear here..." data-ar="سيظهر الملخص هنا...">Summary will appear here...</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="text-center">
+                                                <span class="badge bg-gradient-info">
+                                                    <i class="fas fa-robot me-1"></i>
+                                                    <span data-en="Powered by GPT" data-ar="مدعوم بـ GPT">Powered by GPT</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Shorts Clips Section -->
+                                <div id="shorts-clips-section" class="hidden mt-4">
+                                    <div class="card">
+                                        <div class="card-header pb-0">
+                                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                                <h4 class="mb-0" id="clips-title" data-en="Generated Shorts" data-ar="الشورتس المُولدة">Generated Shorts</h4>
+                                                <div class="clips-count">
+                                                    <span class="badge bg-gradient-primary" id="clips-count-badge">
+                                                        <i class="fas fa-video me-1"></i>
+                                                        <span id="clips-count-text">0 clips</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <!-- View Toggle -->
+                                            <div class="view-toggle">
+                                                <button id="grid-view-btn" class="btn btn-sm active" onclick="youtubeApp.switchToGridView()">
+                                                    <i class="fas fa-th me-1"></i>
+                                                    <span data-en="Grid" data-ar="شبكة">Grid</span>
+                                                </button>
+                                                <button id="list-view-btn" class="btn btn-sm" onclick="youtubeApp.switchToListView()">
+                                                    <i class="fas fa-list me-1"></i>
+                                                    <span data-en="List" data-ar="قائمة">List</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="shorts-clips-container">
+                                                <div class="text-center py-5 text-muted">
+                                                    <i class="fas fa-cut display-4 mb-3"></i>
+                                                    <p data-en="Generated clips will appear here..." data-ar="ستظهر المقاطع المُولدة هنا...">Generated clips will appear here...</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="text-center">
+                                                <span class="badge bg-gradient-info">
+                                                    <i class="fas fa-scissors me-1"></i>
+                                                    <span data-en="Powered by AI + MoviePy" data-ar="مدعوم بـ AI + MoviePy">Powered by AI + MoviePy</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+{{ super() }}
+<script>
+    // Initialize Client-Side Shorts Generator
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🎬 Initializing client-side shorts generator...');
+        
+        // Check if client-side processing mixins are available
+        if (window.YouTubeTranscriptAppMixins && window.YouTubeTranscriptAppMixins.length > 0) {
+            console.log('✅ Client-side processing modules loaded:', window.YouTubeTranscriptAppMixins.length);
+            
+            // Find the client shorts integration mixin
+            const clientShortsIntegration = window.YouTubeTranscriptAppMixins.find(
+                mixin => typeof mixin.initializeClientSideProcessing === 'function'
+            );
+            
+            if (clientShortsIntegration) {
+                // Make it globally accessible
+                window.clientSideShortsIntegration = clientShortsIntegration;
+                
+                // Create youtubeApp object for backward compatibility with card HTML
+                window.youtubeApp = {
+                    playClientClip: (clipId, clipNum) => {
+                        return clientShortsIntegration.playClientClip(clipId, clipNum);
+                    },
+                    downloadClientClip: (clipId) => {
+                        return clientShortsIntegration.downloadClientClip(clipId);
+                    }
+                };
+                
+                // Initialize it
+                clientShortsIntegration.initializeClientSideProcessing()
+                    .then(() => {
+                        console.log('✅ Client-side shorts generator ready!');
+                        
+                        // IMPORTANT: Hook up the Generate Shorts button to use CLIENT-SIDE processing
+                        const generateBtn = document.getElementById('generate-shorts-btn');
+                        if (generateBtn) {
+                            // Remove any existing click handlers
+                            const newBtn = generateBtn.cloneNode(true);
+                            generateBtn.parentNode.replaceChild(newBtn, generateBtn);
+                            
+                            // Add new client-side handler
+                            newBtn.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                console.log('🎬 Generate Shorts button clicked - using CLIENT-SIDE processing');
+                                clientShortsIntegration.generateShortsClientSide();
+                            });
+                            
+                            console.log('✅ Generate Shorts button connected to CLIENT-SIDE processing');
+                        }
+                        
+                        // Also handle Enter key in URL input
+                        const urlInput = document.getElementById('shorts-youtube-url');
+                        if (urlInput) {
+                            urlInput.addEventListener('keypress', function(e) {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    console.log('🎬 Enter pressed - using CLIENT-SIDE processing');
+                                    clientShortsIntegration.generateShortsClientSide();
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('❌ Failed to initialize:', error);
+                    });
+            } else {
+                console.warn('⚠️ Client shorts integration mixin not found');
+            }
+        } else {
+            console.warn('⚠️ Client-side processing not available - using server-side fallback');
+            console.log('Available modules:', window.YouTubeTranscriptAppMixins);
+        }
+    });
+</script>
+{% endblock %}
