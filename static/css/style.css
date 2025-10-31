@@ -2266,8 +2266,9 @@ a:focus-visible {
     #shorts-clips-container.video-clips-grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 8px !important;
-        padding: 0 2px !important;
+        padding: 0 8px !important;
         margin: 0 !important;
+        display: grid !important;
     }
     
     /* Extra small mobile optimizations */
@@ -2275,6 +2276,8 @@ a:focus-visible {
         border-radius: 6px !important;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
         margin-bottom: 0 !important;
+        width: 100% !important;
+        display: block !important;
     }
     
     .video-container {
@@ -3315,4 +3318,130 @@ a:focus-visible {
 
 .loading-progress.queued .progress-fill {
     background: linear-gradient(90deg, var(--queue-position), var(--warning-text));
+}
+
+/* ============================================
+   Mobile Shorts Display Fix
+   ============================================ */
+
+/* Ensure shorts clips section is always visible and properly styled on mobile */
+#shorts-clips-section {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 1rem !important;
+}
+
+#shorts-clips-section .card {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+}
+
+#shorts-clips-section .card-body {
+    padding: 1rem !important;
+}
+
+/* Default grid container visibility and layout */
+#shorts-clips-container {
+    display: block !important;
+    width: 100% !important;
+    min-height: 100px !important;
+}
+
+/* Ensure grid layout is applied correctly */
+#shorts-clips-container.video-clips-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+    gap: 12px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+/* Mobile-specific grid adjustments */
+@media (max-width: 767px) {
+    #shorts-clips-container.video-clips-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        padding: 0 4px !important;
+    }
+    
+    .video-clip-card {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        display: block !important;
+    }
+    
+    .video-container {
+        aspect-ratio: 9/16 !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+    
+    .video-clip-info {
+        padding: 8px !important;
+    }
+    
+    .video-title {
+        font-size: 12px !important;
+        line-height: 1.2 !important;
+        -webkit-line-clamp: 1 !important;
+        line-clamp: 1 !important;
+    }
+    
+    .video-description {
+        font-size: 10px !important;
+        -webkit-line-clamp: 1 !important;
+        line-clamp: 1 !important;
+    }
+    
+    .video-actions {
+        gap: 4px !important;
+    }
+    
+    .video-actions .btn {
+        font-size: 10px !important;
+        padding: 4px 8px !important;
+    }
+}
+
+/* Extra small mobile screens */
+@media (max-width: 480px) {
+    #shorts-clips-container.video-clips-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+        padding: 0 2px !important;
+    }
+}
+
+/* Force visibility of video elements */
+.video-clip-card,
+.video-container,
+.video-placeholder,
+.video-clip-info {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+}
+
+.video-container {
+    display: flex !important;
+}
+
+#shorts-clips-container.video-clips-grid .video-clip-card {
+    display: block !important;
+}
+
+/* Ensure proper initialization of the grid on page load */
+#shorts-clips-container:not(.video-clips-list):not(.video-clips-grid) {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+    gap: 12px !important;
+}
+
+@media (max-width: 767px) {
+    #shorts-clips-container:not(.video-clips-list):not(.video-clips-grid) {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
 }

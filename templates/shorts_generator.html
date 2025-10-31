@@ -193,6 +193,11 @@
             
             if (container) {
                 container.className = 'video-clips-grid';
+                // Force display for mobile compatibility
+                container.style.display = 'grid';
+                container.style.width = '100%';
+                container.style.visibility = 'visible';
+                console.log('✅ Grid view activated with mobile fixes');
             }
             
             if (gridBtn && listBtn) {
@@ -208,6 +213,10 @@
             
             if (container) {
                 container.className = 'video-clips-list';
+                // Force display for mobile compatibility
+                container.style.display = 'block';
+                container.style.width = '100%';
+                container.style.visibility = 'visible';
             }
             
             if (gridBtn && listBtn) {
@@ -215,6 +224,13 @@
                 gridBtn.classList.remove('active');
             }
         }
+        
+        // Initialize grid view on page load for mobile compatibility
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default grid view
+            switchToGridView();
+            console.log('✅ Default grid view initialized for mobile');
+        });
         
         // Initialize Client-Side Shorts Generator (EXACT COPY FROM DASHBOARD)
         document.addEventListener('DOMContentLoaded', function() {

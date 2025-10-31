@@ -151,10 +151,16 @@
                 return;
             }
 
-            // Ensure grid layout is active
+            // Ensure grid layout is active for mobile compatibility
             if (!container.classList.contains('video-clips-grid')) {
                 container.classList.add('video-clips-grid');
+                console.log('✅ Applied video-clips-grid class for mobile display');
             }
+
+            // Force display and visibility for mobile
+            container.style.display = 'grid';
+            container.style.width = '100%';
+            container.style.visibility = 'visible';
 
             // Create clip card element
             const clipCard = this.createClientSideClipCard(clip, clipNum);
@@ -167,13 +173,29 @@
             if (clipsSection) {
                 clipsSection.classList.remove('hidden');
                 clipsSection.style.display = 'block';
+                clipsSection.style.visibility = 'visible';
+                
+                // Force card visibility
+                const cardElement = clipsSection.querySelector('.card');
+                if (cardElement) {
+                    cardElement.style.display = 'block';
+                    cardElement.style.width = '100%';
+                }
             }
 
             // Update clips count
             this.updateClipsCount(clipNum, totalClips);
 
-            // Scroll to the new clip
-            clipCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            // Scroll to the new clip with mobile-friendly behavior
+            setTimeout(() => {
+                clipCard.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'nearest',
+                    inline: 'nearest'
+                });
+            }, 100);
+
+            console.log('✅ Clip displayed and made visible for mobile');
         },
 
         /**
@@ -183,17 +205,23 @@
             const div = document.createElement('div');
             div.className = 'video-clip-card';
             div.setAttribute('data-clip-id', `client-clip-${clipNum}`);
+            
+            // Force display styles for mobile compatibility
+            div.style.display = 'block';
+            div.style.width = '100%';
+            div.style.visibility = 'visible';
+            div.style.opacity = '1';
 
             // Generate thumbnail from blob
             const thumbnailUrl = URL.createObjectURL(clip.blob);
 
             div.innerHTML = `
-                <div class="video-container">
-                    <div class="video-placeholder" id="placeholder-client-${clipNum}">
+                <div class="video-container" style="display: flex; width: 100%; aspect-ratio: 9/16;">
+                    <div class="video-placeholder" id="placeholder-client-${clipNum}" style="display: flex; width: 100%; height: 100%;">
                         <video class="video-thumbnail-video" 
                                src="${thumbnailUrl}" 
                                preload="metadata"
-                               style="width: 100%; height: 100%; object-fit: cover;"></video>
+                               style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
                         <div class="video-overlay"></div>
                         <div class="video-status-badge ready">▶</div>
                         <div class="video-number">${clipNum}</div>
@@ -201,16 +229,16 @@
                             <i class="fas fa-play"></i>
                         </div>
                     </div>
-                    <video class="inline-video-player" id="video-client-${clipNum}" style="display: none;" controls>
+                    <video class="inline-video-player" id="video-client-${clipNum}" style="display: none; width: 100%; height: 100%;" controls>
                         <source src="${clip.downloadUrl}" type="video/webm">
                         Your browser does not support the video tag.
                     </video>
                 </div>
-                <div class="video-clip-info">
-                    <h6 class="video-title">${this.escapeHtml(clip.title)}</h6>
-                    <p class="video-description">${this.escapeHtml(clip.description || '')}</p>
-                    <div class="video-meta">
-                        <small class="text-muted">
+                <div class="video-clip-info" style="display: block; padding: 8px;">
+                    <h6 class="video-title" style="display: block; margin: 0 0 4px 0;">${this.escapeHtml(clip.title)}</h6>
+                    <p class="video-description" style="display: block; margin: 0 0 4px 0;">${this.escapeHtml(clip.description || '')}</p>
+                    <div class="video-meta" style="display: block; margin-bottom: 4px;">
+                        <small class="text-muted" style="display: block;">
                             <i class="fas fa-clock me-1"></i>
                             ${this.formatTime(clip.startTime)} - ${this.formatTime(clip.endTime)}
                             <span class="ms-2">
@@ -219,11 +247,11 @@
                             </span>
                         </small>
                     </div>
-                    <div class="video-actions mt-2">
-                        <button class="btn btn-success btn-sm" onclick="youtubeApp.playClientClip('client-clip-${clipNum}', ${clipNum})">
+                    <div class="video-actions mt-2" style="display: flex; gap: 4px;">
+                        <button class="btn btn-success btn-sm" onclick="youtubeApp.playClientClip('client-clip-${clipNum}', ${clipNum})" style="display: inline-block;">
                             <i class="fas fa-play me-1"></i>Play
                         </button>
-                        <button class="btn btn-outline-success btn-sm" onclick="youtubeApp.downloadClientClip('client-clip-${clipNum}')">
+                        <button class="btn btn-outline-success btn-sm" onclick="youtubeApp.downloadClientClip('client-clip-${clipNum}')" style="display: inline-block;">
                             <i class="fas fa-download me-1"></i>Download
                         </button>
                     </div>
@@ -340,6 +368,15 @@
             const container = document.getElementById('shorts-clips-container');
             if (container) {
                 container.innerHTML = '';
+                // Ensure grid class is maintained for mobile
+                if (!container.classList.contains('video-clips-grid')) {
+                    container.classList.add('video-clips-grid');
+                }
+                // Force visibility styles for mobile
+                container.style.display = 'grid';
+                container.style.width = '100%';
+                container.style.visibility = 'visible';
+                console.log('✅ Previous results cleared, grid maintained for mobile');
             }
 
             // Cleanup previous clip URLs (only if generator was initialized)
